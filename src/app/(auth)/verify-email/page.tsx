@@ -1,8 +1,19 @@
+import VerifyEmailForm from '@/components/modules/Auth/verifyEmailForm';
+import { redirect } from 'next/navigation';
 
-const VerifyEmailPage = () => {
-  return (
-    <div>VerifyEmailPage</div>
-  )
+interface VerifyEmailParams {
+    searchParams: Promise<{ email?: string }>;
 }
 
-export default VerifyEmailPage
+const VerifyEmailPage = async ({ searchParams }: VerifyEmailParams) => {
+    const params = await searchParams;
+    const email = params.email;
+
+    if (!email) {
+        redirect('/signin');
+    }
+
+    return <VerifyEmailForm email={email} />;
+};
+
+export default VerifyEmailPage;

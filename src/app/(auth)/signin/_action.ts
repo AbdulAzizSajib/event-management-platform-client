@@ -27,11 +27,15 @@ export const loginAction = async (
         const response = await httpClient.post<ILoginResponse>('/auth/login', parsedPayload.data);
 
         const { accessToken, refreshToken, token, user } = response.data;
-        const { role } = user;
+        const { role, email, emailVerified } = user;
 
         await setTokenInCookies('accessToken', accessToken);
         await setTokenInCookies('refreshToken', refreshToken);
         await setTokenInCookies('better-auth.session_token', token, 24 * 60 * 60);
+
+        if (!emailVerified) {
+            redirect(`/verify-email?email=${encodeURIComponent(email)}`);
+        }
 
         const targetPath =
             redirectPath && isValidRedirectForRole(redirectPath, role as UserRole)
@@ -50,9 +54,16 @@ export const loginAction = async (
             throw error;
         }
 
+        const errorMessage = error?.response?.data?.message || error?.message || 'Login failed';
+
+        // Backend rejects login for unverified email — redirect to verify page
+        if (errorMessage.toLowerCase().includes('verify')) {
+            redirect(`/verify-email?email=${encodeURIComponent(payload.email)}`);
+        }
+
         return {
             success: false,
-            message: error?.response?.data?.message || error?.message || 'Login failed',
+            message: errorMessage,
         };
     }
 };

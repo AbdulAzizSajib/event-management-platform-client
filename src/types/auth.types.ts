@@ -6,6 +6,7 @@ export interface ILoginResponse {
         name: string;
         email: string;
         role: string;
-        image: string;
+        image: string | null;
+        emailVerified: boolean;
     };
 }
