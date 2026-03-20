@@ -1,0 +1,139 @@
+'use client';
+
+import { joinEvent } from '@/services/participant.services';
+import { createCheckoutSession } from '@/services/payment.services';
+import { useMutation } from '@tanstack/react-query';
+import { CheckCircle, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+
+interface RegisterButtonProps {
+    eventId: string;
+    fee: string;
+    spotsLeft: number;
+}
+
+export default function RegisterButton({ eventId, fee, spotsLeft }: RegisterButtonProps) {
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const [alreadyJoined, setAlreadyJoined] = useState(false);
+    const isFree = parseFloat(fee) === 0;
+
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: async () => {
+            setError(null);
+            setSuccess(null);
+
+            // Step 1: Join the event
+            const joinResult = await joinEvent(eventId);
+
+            if (!joinResult.success) {
+                if (joinResult.alreadyJoined) {
+                    setAlreadyJoined(true);
+
+                    // Paid event — try payment (might also be already paid)
+                    if (!isFree) {
+                        const paymentResult = await createCheckoutSession(eventId);
+                        if (paymentResult.alreadyPaid) {
+                            // Both joined AND paid — fully registered
+                            return;
+                        }
+                        if (!paymentResult.success) {
+                            throw new Error(paymentResult.message);
+                        }
+                        window.location.href = paymentResult.data!.url;
+                        return;
+                    }
+
+                    // Free event — already registered
+                    return;
+                }
+
+                throw new Error(joinResult.message);
+            }
+
+            // Step 2: If paid event, redirect to Stripe checkout
+            if (!isFree) {
+                const paymentResult = await createCheckoutSession(eventId);
+                if (!paymentResult.success) {
+                    throw new Error(paymentResult.message);
+                }
+                window.location.href = paymentResult.data!.url;
+                return;
+            }
+
+            // Free event — joined successfully
+            setSuccess('You have successfully joined this event!');
+        },
+    });
+
+    const handleRegister = async () => {
+        try {
+            await mutateAsync();
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Failed to register';
+            setError(message);
+        }
+    };
+
+    if (spotsLeft <= 0) {
+        return (
+            <button
+                className="w-full cursor-not-allowed rounded-full bg-gray-300 py-3 font-medium text-white"
+                disabled
+            >
+                Sold Out
+            </button>
+        );
+    }
+
+    if (alreadyJoined) {
+        return (
+            <div className="flex items-center justify-center gap-2 rounded-full border border-green-200 bg-green-50 py-3 text-sm font-medium text-green-700">
+                <CheckCircle className="size-4" />
+                You are already registered for this event
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-3">
+            <button
+                onClick={handleRegister}
+                disabled={isPending || !!success}
+                className={`w-full rounded-full py-3 font-medium text-white transition ${
+                    isPending || success
+                        ? 'cursor-not-allowed bg-gray-300'
+                        : 'btn hover:opacity-90'
+                }`}
+            >
+                {isPending ? (
+                    <span className="inline-flex items-center gap-2">
+                        <Loader2 className="size-4 animate-spin" />
+                        {isFree ? 'Joining...' : 'Processing...'}
+                    </span>
+                ) : success ? (
+                    <span className="inline-flex items-center gap-2">
+                        <CheckCircle className="size-4" />
+                        Registered!
+                    </span>
+                ) : isFree ? (
+                    'Join for Free'
+                ) : (
+                    'Register Now'
+                )}
+            </button>
+
+            {error && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+                    {error}
+                </div>
+            )}
+
+            {success && (
+                <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-2.5 text-sm text-green-600">
+                    {success}
+                </div>
+            )}
+        </div>
+    );
+}

@@ -1,38 +1,79 @@
-import { CalendarDays, MapPin, Users, Star, ArrowRight } from 'lucide-react';
+import { CalendarDays, MapPin, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { getCategoryById, type Event } from '@/lib/mock-data';
+import type { Event } from '@/types';
 
 export interface EventCardProps {
     event: Event;
     variant?: 'default' | 'horizontal';
 }
 
+function formatFee(fee: string): string {
+    const num = parseFloat(fee);
+    return num === 0 ? 'Free' : `৳${num}`;
+}
+
 export default function EventCard({ event, variant = 'default' }: EventCardProps) {
-    const category = getCategoryById(event.categoryId);
-    const spotsLeft = event.maxAttendees - event.registrationCount;
+    const spotsLeft = event.maxAttendees - event._count.participants;
     const isFull = spotsLeft <= 0;
+    const fee = formatFee(event.fee);
+    const isFree = parseFloat(event.fee) === 0;
 
     if (variant === 'horizontal') {
         return (
-            <Link href={`/events/${event.id}`} className='group flex flex-col sm:flex-row gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg'>
-                <div className='relative h-48 sm:h-auto sm:w-56 shrink-0 overflow-hidden rounded-lg'>
-                    <img src={event.image} alt={event.title} className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105' />
-                    {event.price === 0 && (
-                        <span className='absolute top-2 left-2 rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-medium text-white'>Free</span>
+            <Link
+                href={`/events/${event.id}`}
+                className="group flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:flex-row"
+            >
+                <div className="relative h-48 shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-56">
+                    {event.organizer?.image ? (
+                        <img
+                            src={event.organizer.image}
+                            alt={event.title}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100">
+                            <CalendarDays className="size-10 text-indigo-400" />
+                        </div>
+                    )}
+                    {isFree && (
+                        <span className="absolute top-2 left-2 rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-medium text-white">
+                            Free
+                        </span>
                     )}
                 </div>
-                <div className='flex flex-1 flex-col justify-between py-1'>
+                <div className="flex flex-1 flex-col justify-between py-1">
                     <div>
-                        {category && <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${category.color}`}>{category.icon} {category.name}</span>}
-                        <h3 className='mt-2 text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors'>{event.title}</h3>
-                        <p className='mt-1 text-sm text-gray-500 line-clamp-2'>{event.description}</p>
+                        <span className="inline-block rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                            {event.category.name}
+                        </span>
+                        <h3 className="mt-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-indigo-600">
+                            {event.title}
+                        </h3>
+                        <p className="mt-1 line-clamp-2 text-sm text-gray-500">
+                            {event.description}
+                        </p>
                     </div>
-                    <div className='mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-500'>
-                        <span className='flex items-center gap-1'><CalendarDays className='size-4' /> {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                        <span className='flex items-center gap-1'><MapPin className='size-4' /> {event.location.split(',')[0]}</span>
-                        <span className='flex items-center gap-1'><Users className='size-4' /> {event.registrationCount} registered</span>
-                        {event.avgRating && <span className='flex items-center gap-1'><Star className='size-4 fill-amber-400 text-amber-400' /> {event.avgRating}</span>}
-                        <span className='ml-auto font-semibold text-indigo-600'>{event.price === 0 ? 'Free' : `$${event.price}`}</span>
+                    <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                            <CalendarDays className="size-4" />
+                            {new Date(event.date).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric',
+                            })}
+                        </span>
+                        <span className="flex items-center gap-1">
+                            <MapPin className="size-4" />
+                            {event.venue.split(',')[0]}
+                        </span>
+                        <span className="flex items-center gap-1">
+                            <Users className="size-4" />
+                            {event._count.participants} joined
+                        </span>
+                        <span className="ml-auto font-semibold text-indigo-600">
+                            {fee}
+                        </span>
                     </div>
                 </div>
             </Link>
@@ -40,46 +81,84 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
     }
 
     return (
-        <Link href={`/events/${event.id}`} className='group flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg'>
-            <div className='relative h-48 overflow-hidden'>
-                <img src={event.image} alt={event.title} className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105' />
-                <div className='absolute top-3 left-3 flex gap-2'>
-                    {event.price === 0 && (
-                        <span className='rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-medium text-white'>Free</span>
+        <Link
+            href={`/events/${event.id}`}
+            className="group flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        >
+            <div className="relative h-48 overflow-hidden">
+                {event.organizer?.image ? (
+                    <img
+                        src={event.organizer.image}
+                        alt={event.title}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100">
+                        <CalendarDays className="size-12 text-indigo-400" />
+                    </div>
+                )}
+                <div className="absolute top-3 left-3 flex gap-2">
+                    {isFree && (
+                        <span className="rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-medium text-white">
+                            Free
+                        </span>
                     )}
                     {event.isFeatured && (
-                        <span className='rounded-full bg-indigo-500 px-2.5 py-0.5 text-xs font-medium text-white'>Featured</span>
+                        <span className="rounded-full bg-indigo-500 px-2.5 py-0.5 text-xs font-medium text-white">
+                            Featured
+                        </span>
                     )}
+                    <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+                        {event.type}
+                    </span>
                 </div>
                 {isFull && (
-                    <div className='absolute inset-0 flex items-center justify-center bg-black/40'>
-                        <span className='rounded-full bg-red-500 px-4 py-1.5 text-sm font-semibold text-white'>Sold Out</span>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <span className="rounded-full bg-red-500 px-4 py-1.5 text-sm font-semibold text-white">
+                            Sold Out
+                        </span>
                     </div>
                 )}
             </div>
-            <div className='flex flex-1 flex-col p-4'>
-                <div className='flex items-center justify-between'>
-                    {category && <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${category.color}`}>{category.icon} {category.name}</span>}
-                    <span className='text-lg font-bold text-indigo-600'>{event.price === 0 ? 'Free' : `$${event.price}`}</span>
+            <div className="flex flex-1 flex-col p-4">
+                <div className="flex items-center justify-between">
+                    <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                        {event.category.name}
+                    </span>
+                    <span className="text-lg font-bold text-indigo-600">{fee}</span>
                 </div>
-                <h3 className='mt-2 text-base font-semibold text-gray-900 line-clamp-1 group-hover:text-indigo-600 transition-colors'>{event.title}</h3>
-                <p className='mt-1 text-sm text-gray-500 line-clamp-2'>{event.description}</p>
-                <div className='mt-auto pt-4 flex flex-col gap-2 text-sm text-gray-500'>
-                    <div className='flex items-center gap-1'>
-                        <CalendarDays className='size-4 text-indigo-400' />
-                        {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} at {event.time}
+                <h3 className="mt-2 line-clamp-1 text-base font-semibold text-gray-900 transition-colors group-hover:text-indigo-600">
+                    {event.title}
+                </h3>
+                <p className="mt-1 line-clamp-2 text-sm text-gray-500">
+                    {event.description}
+                </p>
+                <div className="mt-auto flex flex-col gap-2 pt-4 text-sm text-gray-500">
+                    <div className="flex items-center gap-1">
+                        <CalendarDays className="size-4 text-indigo-400" />
+                        {new Date(event.date).toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                        })}{' '}
+                        at {event.time}
                     </div>
-                    <div className='flex items-center gap-1'>
-                        <MapPin className='size-4 text-indigo-400' />
-                        <span className='line-clamp-1'>{event.location}</span>
+                    <div className="flex items-center gap-1">
+                        <MapPin className="size-4 text-indigo-400" />
+                        <span className="line-clamp-1">{event.venue}</span>
                     </div>
-                    <div className='flex items-center justify-between pt-2 border-t border-gray-100'>
-                        <div className='flex items-center gap-3'>
-                            <span className='flex items-center gap-1'><Users className='size-4' /> {event.registrationCount}</span>
-                            {event.avgRating && <span className='flex items-center gap-1'><Star className='size-4 fill-amber-400 text-amber-400' /> {event.avgRating}</span>}
+                    <div className="flex items-center justify-between border-t border-gray-100 pt-2">
+                        <div className="flex items-center gap-3">
+                            <span className="flex items-center gap-1">
+                                <Users className="size-4" />
+                                {event._count.participants}/{event.maxAttendees}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                                by {event.organizer.name}
+                            </span>
                         </div>
-                        <span className='flex items-center gap-1 text-indigo-600 font-medium group-hover:gap-2 transition-all'>
-                            Details <ArrowRight className='size-4' />
+                        <span className="flex items-center gap-1 font-medium text-indigo-600 transition-all group-hover:gap-2">
+                            Details <ArrowRight className="size-4" />
                         </span>
                     </div>
                 </div>

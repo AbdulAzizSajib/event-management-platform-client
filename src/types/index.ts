@@ -2,27 +2,26 @@
 
 export type Role = 'ADMIN' | 'USER';
 export type EventStatus = 'PUBLISHED' | 'DRAFT' | 'CANCELLED' | 'COMPLETED';
+export type EventType = 'PUBLIC' | 'PRIVATE';
 export type RegistrationStatus = 'CONFIRMED' | 'WAITLISTED' | 'CANCELLED';
 export type PaymentStatus = 'COMPLETED' | 'PENDING' | 'FAILED' | 'REFUNDED';
 export type InvitationStatus = 'PENDING' | 'ACCEPTED' | 'DECLINED';
 
-// ==================== MODELS ====================
+// ==================== MODELS (matching API response) ====================
 
 export interface Category {
     id: string;
     name: string;
-    icon: string;
-    color: string;
-    eventCount: number;
+    icon: string | null;
+    createdAt: string;
+    updatedAt: string;
 }
 
-export interface User {
+export interface Organizer {
     id: string;
     name: string;
     email: string;
-    image: string;
-    bio: string;
-    role: Role;
+    image: string | null;
 }
 
 export interface Event {
@@ -31,18 +30,47 @@ export interface Event {
     description: string;
     date: string;
     time: string;
-    location: string;
-    image: string;
-    price: number;
+    venue: string;
+    eventLink: string | null;
+    type: EventType;
+    fee: string;
     maxAttendees: number;
-    status: EventStatus;
     isFeatured: boolean;
-    ownerId: string;
     categoryId: string;
-    tags: string[];
-    registrationCount: number;
-    reviewCount: number;
-    avgRating: number;
+    organizerId: string;
+    createdAt: string;
+    updatedAt: string;
+    category: Category;
+    organizer: Organizer;
+    _count: {
+        participants: number;
+        reviews: number;
+    };
+}
+
+export interface EventReview {
+    id: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    user?: {
+        name: string;
+        image: string | null;
+    };
+}
+
+export interface EventDetail extends Event {
+    participants: unknown[];
+    reviews: EventReview[];
+}
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+    bio?: string;
+    role: Role;
 }
 
 export interface Review {
