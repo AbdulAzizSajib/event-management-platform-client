@@ -9,6 +9,9 @@ export interface UserProfile {
     phone: string;
     image: string | null;
     role: string;
+    emailVerified: boolean;
+    status: string;
+    createdAt: string;
 }
 
 export interface UpdateProfilePayload {
@@ -18,7 +21,7 @@ export interface UpdateProfilePayload {
 }
 
 export const getMyProfile = async () => {
-    return httpClient.get<UserProfile>('/users/profile');
+    return httpClient.get<UserProfile>('/auth/me');
 };
 
 export const updateProfile = async (data: UpdateProfilePayload) => {
