@@ -88,9 +88,18 @@ export default function RegisterButton({ eventId, fee, spotsLeft }: RegisterButt
 
     if (alreadyJoined) {
         return (
-            <div className="flex items-center justify-center gap-2 rounded-full border border-green-200 bg-green-50 py-3 text-sm font-medium text-green-700">
-                <CheckCircle className="size-4" />
-                You are already registered for this event
+            <div className="space-y-3">
+                <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-center">
+                    <CheckCircle className="mx-auto size-8 text-green-500" />
+                    <p className="mt-2 text-sm font-semibold text-green-800">You&apos;re registered!</p>
+                    <p className="mt-0.5 text-xs text-green-600">You have already joined this event</p>
+                </div>
+                <a
+                    href="/dashboard?tab=registrations"
+                    className="flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200 py-2.5 text-sm font-medium text-indigo-600 transition hover:bg-indigo-50"
+                >
+                    View My Registrations
+                </a>
             </div>
         );
     }

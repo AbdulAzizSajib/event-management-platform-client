@@ -1,8 +1,10 @@
-import { CalendarDays, Clock, MapPin, Users, Star, Share2, Heart, ArrowLeft, ExternalLink, User } from 'lucide-react';
+import { CalendarDays, Clock, MapPin, Users, Star, ArrowLeft, ExternalLink, User } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getEventById } from '@/services/event.services';
 import RegisterButton from '@/components/modules/Event/RegisterButton';
+import SaveButton from '@/components/modules/Event/SaveButton';
+import ShareButtons from '@/components/modules/Event/ShareButtons';
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -66,12 +68,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                         <h1 className="text-2xl font-bold text-white md:text-4xl">{event.title}</h1>
                     </div>
                     <div className="absolute top-4 right-4 flex gap-2">
-                        <button className="flex size-10 items-center justify-center rounded-full bg-white/90 text-gray-700 transition hover:bg-white hover:text-red-500">
-                            <Heart className="size-5" />
-                        </button>
-                        <button className="flex size-10 items-center justify-center rounded-full bg-white/90 text-gray-700 transition hover:bg-white hover:text-indigo-500">
-                            <Share2 className="size-5" />
-                        </button>
+                        <SaveButton eventId={event.id} />
                     </div>
                 </div>
 
@@ -232,19 +229,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                             </div>
 
                             {/* Share */}
-                            <div className="rounded-xl border border-gray-200 bg-white p-4 text-center text-sm text-gray-500">
-                                <p>Share this event with friends</p>
-                                <div className="mt-3 flex justify-center gap-3">
-                                    {['Twitter', 'LinkedIn', 'Facebook', 'Email'].map((platform) => (
-                                        <button
-                                            key={platform}
-                                            className="rounded-full border border-gray-200 px-3 py-1.5 text-xs transition hover:border-indigo-300 hover:text-indigo-600"
-                                        >
-                                            {platform}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                            <ShareButtons
+                                url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/events/${event.id}`}
+                                title={event.title}
+                                description={event.description}
+                            />
                         </div>
                     </div>
                 </div>

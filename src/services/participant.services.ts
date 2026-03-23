@@ -56,3 +56,35 @@ export const joinEvent = async (eventId: string): Promise<JoinEventResult> => {
         };
     }
 };
+
+export interface MyParticipation {
+    id: string;
+    status: string;
+    eventId: string;
+    userId: string;
+    joinedAt: string;
+    updatedAt: string;
+    event: {
+        id: string;
+        title: string;
+        description: string;
+        date: string;
+        time: string;
+        venue: string;
+        eventLink: string | null;
+        type: string;
+        fee: string;
+        maxAttendees: number;
+        isFeatured: boolean;
+        organizer: {
+            id: string;
+            name: string;
+            email: string;
+            image: string | null;
+        };
+    };
+}
+
+export const getMyParticipations = async () => {
+    return httpClient.get<MyParticipation[]>('/participants/my-participations');
+};

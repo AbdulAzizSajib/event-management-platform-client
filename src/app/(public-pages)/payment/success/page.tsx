@@ -1,25 +1,61 @@
-import { verifyPayment } from '@/services/payment.services';
-import { CheckCircle, CalendarDays, CreditCard, ArrowRight, Home } from 'lucide-react';
+'use client';
+
+import { verifyPayment, type PaymentData } from '@/services/payment.services';
+import { CheckCircle, CreditCard, CalendarDays, ArrowRight, Home, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, useCallback } from 'react';
 
-interface PaymentSuccessPageProps {
-    searchParams: Promise<{ session_id?: string }>;
-}
+export default function PaymentSuccessPage() {
+    const searchParams = useSearchParams();
+    const sessionId = searchParams.get('session_id');
 
-export default async function PaymentSuccessPage({ searchParams }: PaymentSuccessPageProps) {
-    const params = await searchParams;
-    const sessionId = params.session_id;
+    const [payment, setPayment] = useState<PaymentData | null>(null);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    if (!sessionId) {
-        redirect('/events');
+    const verify = useCallback(async () => {
+        if (!sessionId) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
+
+        // Retry up to 5 times with 2s delay — webhook may not have processed yet
+        for (let attempt = 0; attempt < 5; attempt++) {
+            try {
+                const response = await verifyPayment(sessionId);
+                setPayment(response.data);
+                setLoading(false);
+                return;
+            } catch {
+                if (attempt < 4) {
+                    await new Promise((r) => setTimeout(r, 2000));
+                }
+            }
+        }
+
+        setError(true);
+        setLoading(false);
+    }, [sessionId]);
+
+    useEffect(() => {
+        verify();
+    }, [verify]);
+
+    if (loading) {
+        return (
+            <div className="flex min-h-[60vh] items-center justify-center px-4">
+                <div className="flex flex-col items-center gap-4 text-center">
+                    <Loader2 className="size-10 animate-spin text-indigo-500" />
+                    <h2 className="text-lg font-semibold text-gray-900">Verifying your payment...</h2>
+                    <p className="text-sm text-gray-500">Please wait while we confirm your transaction.</p>
+                </div>
+            </div>
+        );
     }
 
-    let payment;
-    try {
-        const response = await verifyPayment(sessionId);
-        payment = response.data;
-    } catch {
+    if (error || !payment) {
         return (
             <div className="flex min-h-[60vh] items-center justify-center px-4">
                 <div className="max-w-md text-center">
@@ -52,9 +88,7 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
                         <CheckCircle className="size-10 text-green-500" />
                     </div>
                     <h1 className="mt-6 text-2xl font-bold text-gray-900">Payment Successful!</h1>
-                    <p className="mt-2 text-sm text-gray-500">
-                        Your registration has been confirmed.
-                    </p>
+                    <p className="mt-2 text-sm text-gray-500">Your registration has been confirmed.</p>
                 </div>
 
                 {/* Payment Details Card */}
