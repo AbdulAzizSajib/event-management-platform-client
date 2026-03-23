@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, ImagePlus, Loader2, X } from 'lucide-react';
 import { createEvent, type CreateEventPayload } from '@/services/event.services';
 import { getAllCategories } from '@/services/category.services';
 import AppField from '@/components/shared/form/AppField';
@@ -32,6 +32,9 @@ export default function CreateEventTab() {
     const [categories, setCategories] = useState<CategoryOption[]>([]);
     const [serverError, setServerError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         getAllCategories()
@@ -74,10 +77,15 @@ export default function CreateEventTab() {
                 if (value.eventLink) {
                     payload.eventLink = value.eventLink;
                 }
+                if (imageFile) {
+                    payload.image = imageFile;
+                }
 
                 await mutateAsync(payload);
                 setSuccess('Event created successfully!');
                 form.reset();
+                setImageFile(null);
+                setImagePreview(null);
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 const message = error?.response?.data?.message || error?.message || 'Failed to create event';
@@ -169,6 +177,55 @@ export default function CreateEventTab() {
                                 />
                             )}
                         </form.Field>
+                    </div>
+
+                    {/* Image Upload */}
+                    <div className="sm:col-span-2">
+                        <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                            Event Image (optional)
+                        </label>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    setImageFile(file);
+                                    setImagePreview(URL.createObjectURL(file));
+                                }
+                            }}
+                        />
+                        {imagePreview ? (
+                            <div className="relative">
+                                <img
+                                    src={imagePreview}
+                                    alt="Preview"
+                                    className="h-48 w-full rounded-xl object-cover"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setImageFile(null);
+                                        setImagePreview(null);
+                                        if (fileInputRef.current) fileInputRef.current.value = '';
+                                    }}
+                                    className="absolute top-2 right-2 rounded-full bg-black/50 p-1 text-white transition hover:bg-black/70"
+                                >
+                                    <X className="size-4" />
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current?.click()}
+                                className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-indigo-400 hover:text-indigo-500"
+                            >
+                                <ImagePlus className="size-8" />
+                                <span className="text-sm">Click to upload image</span>
+                            </button>
+                        )}
                     </div>
 
                     {/* Type */}

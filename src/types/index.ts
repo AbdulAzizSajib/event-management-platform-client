@@ -35,6 +35,7 @@ export interface Event {
     type: EventType;
     fee: string;
     maxAttendees: number;
+    image: string | null;
     isFeatured: boolean;
     categoryId: string;
     organizerId: string;

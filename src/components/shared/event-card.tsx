@@ -25,7 +25,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                 className="group flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:flex-row"
             >
                 <div className="relative h-48 shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-56">
-                    {event.organizer?.image ? (
+                    {event.image ? (
                         <img
                             src={event.organizer.image}
                             alt={event.title}
@@ -86,7 +86,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
             className="group flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
         >
             <div className="relative h-48 overflow-hidden">
-                {event.organizer?.image ? (
+                {event.image ? (
                     <img
                         src={event.organizer.image}
                         alt={event.title}

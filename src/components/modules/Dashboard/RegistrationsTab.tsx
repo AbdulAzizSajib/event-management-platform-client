@@ -60,10 +60,14 @@ export default function RegistrationsTab() {
                                 href={`/events/${p.event.id}`}
                                 className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm sm:flex-row sm:items-center"
                             >
-                                {/* Event image placeholder */}
-                                <div className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
-                                    <CalendarDays className="size-6 text-indigo-400" />
-                                </div>
+                                {/* Event image */}
+                                {p.event.image ? (
+                                    <img src={p.event.image} alt={p.event.title} className="size-14 shrink-0 rounded-lg object-cover" />
+                                ) : (
+                                    <div className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
+                                        <CalendarDays className="size-6 text-indigo-400" />
+                                    </div>
+                                )}
 
                                 {/* Event info */}
                                 <div className="min-w-0 flex-1">

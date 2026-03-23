@@ -136,9 +136,13 @@ export default function OverviewTab() {
                                 href={`/events/${p.event.id}`}
                                 className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm"
                             >
-                                <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
-                                    <CalendarDays className="size-5 text-indigo-400" />
-                                </div>
+                                {p.event.image ? (
+                                    <img src={p.event.image} alt={p.event.title} className="size-12 shrink-0 rounded-lg object-cover" />
+                                ) : (
+                                    <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
+                                        <CalendarDays className="size-5 text-indigo-400" />
+                                    </div>
+                                )}
                                 <div className="min-w-0 flex-1">
                                     <p className="truncate font-medium text-gray-900">{p.event.title}</p>
                                     <div className="mt-1 flex items-center gap-3 text-xs text-gray-500">
@@ -190,9 +194,13 @@ export default function OverviewTab() {
                                     href={`/events/${e.id}`}
                                     className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm"
                                 >
-                                    <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100">
-                                        <CalendarDays className="size-5 text-amber-500" />
-                                    </div>
+                                    {e.image ? (
+                                        <img src={e.image} alt={e.title} className="size-12 shrink-0 rounded-lg object-cover" />
+                                    ) : (
+                                        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100">
+                                            <CalendarDays className="size-5 text-amber-500" />
+                                        </div>
+                                    )}
                                     <div className="min-w-0 flex-1">
                                         <p className="truncate font-medium text-gray-900">{e.title}</p>
                                         <div className="mt-1 flex items-center gap-3 text-xs text-gray-500">

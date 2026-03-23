@@ -26,6 +26,7 @@ export interface DashboardData {
         date: string;
         type: string;
         fee: string;
+        image?: string | null;
         isFeatured: boolean;
         _count: {
             participants: number;
@@ -43,6 +44,7 @@ export interface DashboardData {
             date: string;
             type: string;
             venue: string;
+            image?: string | null;
         };
     }[];
     pendingInvitations: unknown[];

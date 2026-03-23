@@ -36,8 +36,24 @@ export interface CreateEventPayload {
     maxAttendees: number;
     categoryId: string;
     eventLink?: string;
+    image?: File;
 }
 
 export const createEvent = async (data: CreateEventPayload) => {
-    return httpClient.post<Event>('/events', data);
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('date', data.date);
+    formData.append('time', data.time);
+    formData.append('venue', data.venue);
+    formData.append('type', data.type);
+    formData.append('fee', String(data.fee));
+    formData.append('maxAttendees', String(data.maxAttendees));
+    formData.append('categoryId', data.categoryId);
+    if (data.eventLink) formData.append('eventLink', data.eventLink);
+    if (data.image) formData.append('image', data.image);
+
+    return httpClient.post<Event>('/events', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
 };

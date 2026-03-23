@@ -25,6 +25,7 @@ interface SavedEventItem {
             name: string;
             image: string | null;
         };
+        image?: string | null;
         category?: {
             id: string;
             name: string;
@@ -99,9 +100,13 @@ export default function SavedTab() {
                             >
                                 <Link href={`/events/${saved.event.id}`}>
                                     <div className="relative h-36 overflow-hidden">
-                                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100 transition group-hover:scale-105">
-                                            <CalendarDays className="size-10 text-indigo-400" />
-                                        </div>
+                                        {saved.event.image ? (
+                                            <img src={saved.event.image} alt={saved.event.title} className="h-full w-full object-cover transition group-hover:scale-105" />
+                                        ) : (
+                                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100 transition group-hover:scale-105">
+                                                <CalendarDays className="size-10 text-indigo-400" />
+                                            </div>
+                                        )}
                                         <div className="absolute top-2 left-2 flex gap-1.5">
                                             {saved.event.category && (
                                                 <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-medium text-gray-700">

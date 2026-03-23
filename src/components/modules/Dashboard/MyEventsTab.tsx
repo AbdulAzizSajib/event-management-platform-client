@@ -88,9 +88,13 @@ export default function MyEventsTab() {
                                 key={event.id}
                                 className="flex flex-col items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row sm:items-center"
                             >
-                                <div className="flex size-20 w-32 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
-                                    <CalendarDays className="size-8 text-indigo-400" />
-                                </div>
+                                {event.image ? (
+                                    <img src={event.image} alt={event.title} className="size-20 w-32 shrink-0 rounded-lg object-cover" />
+                                ) : (
+                                    <div className="flex size-20 w-32 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
+                                        <CalendarDays className="size-8 text-indigo-400" />
+                                    </div>
+                                )}
                                 <div className="min-w-0 flex-1">
                                     <div className="mb-1 flex flex-wrap items-center gap-2">
                                         <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">

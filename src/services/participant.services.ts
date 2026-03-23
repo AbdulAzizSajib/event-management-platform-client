@@ -75,6 +75,7 @@ export interface MyParticipation {
         type: string;
         fee: string;
         maxAttendees: number;
+        image?: string | null;
         isFeatured: boolean;
         organizer: {
             id: string;

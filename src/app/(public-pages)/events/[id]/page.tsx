@@ -5,6 +5,7 @@ import { getEventById } from '@/services/event.services';
 import RegisterButton from '@/components/modules/Event/RegisterButton';
 import SaveButton from '@/components/modules/Event/SaveButton';
 import ShareButtons from '@/components/modules/Event/ShareButtons';
+import ReviewForm from '@/components/modules/Event/ReviewForm';
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -38,8 +39,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
 
                 {/* Hero Banner */}
                 <div className="relative h-64 overflow-hidden rounded-2xl md:h-96">
-                    {event.organizer?.image ? (
-                        <img src={event.organizer.image} alt={event.title} className="h-full w-full object-cover" />
+                    {event.image ? (
+                        <img src={event.image} alt={event.title} className="h-full w-full object-cover" />
                     ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-200 to-violet-200">
                             <CalendarDays className="size-20 text-indigo-400" />
@@ -154,6 +155,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                 </div>
                             </div>
                         )}
+
+                        {/* Review Form */}
+                        <ReviewForm eventId={event.id} />
 
                         {event._count.reviews === 0 && (
                             <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center">
