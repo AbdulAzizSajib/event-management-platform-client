@@ -115,7 +115,7 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
                     <div className="btn flex size-10 items-center justify-center rounded-lg">
                         <CalendarDays className="size-6 text-white" />
                     </div>
-                    <span className="bg-linear-to-r from-indigo-600 to-violet-500 bg-clip-text text-2xl font-bold text-transparent">
+                    <span className="bg-linear-to-r from-blue-600 to-blue-500 bg-clip-text text-2xl font-bold text-transparent">
                         Planora
                     </span>
                 </Link>
@@ -126,9 +126,9 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-                <div className="mb-6 flex items-center gap-2 rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3">
-                    <Mail className="size-5 text-indigo-600" />
-                    <span className="text-sm text-indigo-700">{email}</span>
+                <div className="mb-6 flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
+                    <Mail className="size-5 text-blue-600" />
+                    <span className="text-sm text-blue-700">{email}</span>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -147,7 +147,7 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
                                     value={digit}
                                     onChange={(e) => handleChange(index, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(index, e)}
-                                    className="size-12 rounded-xl border border-gray-300 text-center text-lg font-semibold outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    className="size-12 rounded-xl border border-gray-300 text-center text-lg font-semibold outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                 />
                             ))}
                         </div>
@@ -180,7 +180,7 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
                         type="button"
                         onClick={handleResend}
                         disabled={cooldown > 0 || isResending}
-                        className="font-medium text-indigo-600 hover:underline disabled:cursor-not-allowed disabled:text-gray-400 disabled:no-underline"
+                        className="font-medium text-blue-600 hover:underline disabled:cursor-not-allowed disabled:text-gray-400 disabled:no-underline"
                     >
                         {isResending ? (
                             <span className="inline-flex items-center gap-1">
@@ -200,7 +200,7 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
                 Wrong email?{' '}
                 <Link
                     href="/signup"
-                    className="font-medium text-indigo-600 hover:underline"
+                    className="font-medium text-blue-600 hover:underline"
                 >
                     Sign up again
                 </Link>

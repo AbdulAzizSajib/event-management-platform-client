@@ -65,7 +65,7 @@ export default function SettingsTab() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -102,8 +102,8 @@ export default function SettingsTab() {
                         {profile?.image ? (
                             <img src={profile.image} alt={profile.name} className="size-20 rounded-full object-cover" />
                         ) : (
-                            <div className="flex size-20 items-center justify-center rounded-full bg-indigo-100">
-                                <User className="size-10 text-indigo-600" />
+                            <div className="flex size-20 items-center justify-center rounded-full bg-blue-100">
+                                <User className="size-10 text-blue-600" />
                             </div>
                         )}
                         <div>
@@ -125,7 +125,7 @@ export default function SettingsTab() {
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                     />
                                 </div>
                             )}
@@ -142,7 +142,7 @@ export default function SettingsTab() {
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                     />
                                 </div>
                             )}
@@ -170,7 +170,7 @@ export default function SettingsTab() {
                                         )}
                                     </div>
                                 )}
-                                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-600 transition hover:border-indigo-400 hover:bg-indigo-50">
+                                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-600 transition hover:border-blue-400 hover:bg-blue-50">
                                     <Camera className="size-4" />
                                     {imageFile ? 'Change Image' : 'Upload Image'}
                                     <input

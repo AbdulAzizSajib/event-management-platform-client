@@ -26,7 +26,7 @@ export default async function FeaturedEvents() {
             </div>
             <Link
                 href="/events"
-                className="mt-10 flex items-center gap-2 font-medium text-indigo-600 transition-all hover:gap-3"
+                className="mt-10 flex items-center gap-2 font-medium text-blue-600 transition-all hover:gap-3"
             >
                 View all events <ArrowRightIcon className="size-4" />
             </Link>

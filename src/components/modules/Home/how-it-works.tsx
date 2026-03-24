@@ -43,7 +43,7 @@ export default function HowItWorks() {
                         <div className="flex size-16 items-center justify-center rounded-2xl btn text-white mb-4 transition-transform duration-300 group-hover:scale-110">
                             <step.icon className="size-7" />
                         </div>
-                        <span className="absolute -top-2 -right-2 flex size-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600">{index + 1}</span>
+                        <span className="absolute -top-2 -right-2 flex size-7 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">{index + 1}</span>
                         <h3 className="text-lg font-semibold text-gray-800">{step.title}</h3>
                         <p className="mt-2 text-sm text-gray-500">{step.description}</p>
                     </div>

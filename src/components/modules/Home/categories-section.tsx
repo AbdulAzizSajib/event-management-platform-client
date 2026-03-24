@@ -14,10 +14,10 @@ export default function CategoriesSection() {
                     <Link
                         key={cat.id}
                         href="/events"
-                        className="group flex flex-col items-center gap-3 rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-indigo-200"
+                        className="group flex flex-col items-center gap-3 rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-blue-200"
                     >
                         <span className="text-4xl">{cat.icon}</span>
-                        <h3 className="font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">{cat.name}</h3>
+                        <h3 className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{cat.name}</h3>
                         <p className="text-xs text-gray-400">{cat.eventCount} events</p>
                     </Link>
                 ))}

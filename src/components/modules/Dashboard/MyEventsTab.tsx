@@ -57,7 +57,7 @@ export default function MyEventsTab() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -92,13 +92,13 @@ export default function MyEventsTab() {
                                 {event.image ? (
                                     <img src={event.image} alt={event.title} className="size-20 w-32 shrink-0 rounded-lg object-cover" />
                                 ) : (
-                                    <div className="flex size-20 w-32 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
-                                        <CalendarDays className="size-8 text-indigo-400" />
+                                    <div className="flex size-20 w-32 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-blue-100">
+                                        <CalendarDays className="size-8 text-blue-400" />
                                     </div>
                                 )}
                                 <div className="min-w-0 flex-1">
                                     <div className="mb-1 flex flex-wrap items-center gap-2">
-                                        <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                                        <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
                                             {event.type}
                                         </span>
                                         {event.isFeatured && (
@@ -129,7 +129,7 @@ export default function MyEventsTab() {
                                             Event Fee: {isFree ? 'Free' : `৳ ${fee.toLocaleString()}`}
                                         </span>
                                         {!isFree && (
-                                            <span className="font-medium text-indigo-600">
+                                            <span className="font-medium text-blue-600">
                                                 Revenue: ৳ {revenue.toLocaleString()}
                                             </span>
                                         )}
@@ -142,7 +142,7 @@ export default function MyEventsTab() {
                                     >
                                         <Eye className="size-4" />
                                     </Link>
-                                    <button className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-indigo-600">
+                                    <button className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600">
                                         <Edit className="size-4" />
                                     </button>
                                     <button

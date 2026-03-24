@@ -38,7 +38,7 @@ export default async function PaymentCancelPage({ searchParams }: PaymentCancelP
                     </Link>
                     <Link
                         href="/"
-                        className="flex items-center justify-center gap-2 text-sm text-gray-500 transition hover:text-indigo-600"
+                        className="flex items-center justify-center gap-2 text-sm text-gray-500 transition hover:text-blue-600"
                     >
                         <Home className="size-4" />
                         Go Home

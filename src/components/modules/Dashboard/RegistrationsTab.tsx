@@ -26,7 +26,7 @@ export default function RegistrationsTab() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -64,8 +64,8 @@ export default function RegistrationsTab() {
                                 {p.event.image ? (
                                     <img src={p.event.image} alt={p.event.title} className="size-14 shrink-0 rounded-lg object-cover" />
                                 ) : (
-                                    <div className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100">
-                                        <CalendarDays className="size-6 text-indigo-400" />
+                                    <div className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-blue-100">
+                                        <CalendarDays className="size-6 text-blue-400" />
                                     </div>
                                 )}
 
@@ -98,7 +98,7 @@ export default function RegistrationsTab() {
                                         <span className="text-gray-400">
                                             Joined {new Date(p.joinedAt).toLocaleDateString()}
                                         </span>
-                                        <span className="rounded-full bg-indigo-50 px-2 py-0.5 font-medium text-indigo-700">
+                                        <span className="rounded-full bg-blue-50 px-2 py-0.5 font-medium text-blue-700">
                                             {p.event.type}
                                         </span>
                                     </div>
@@ -106,7 +106,7 @@ export default function RegistrationsTab() {
 
                                 {/* Fee + Status */}
                                 <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold text-indigo-600">
+                                    <span className="text-sm font-semibold text-blue-600">
                                         {isFree ? 'Free' : `৳${fee}`}
                                     </span>
                                     <span

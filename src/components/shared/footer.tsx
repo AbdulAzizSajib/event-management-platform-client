@@ -39,7 +39,7 @@ export default function Footer() {
                     <div className='flex size-9 items-center justify-center rounded-lg btn'>
                         <CalendarDays className='size-5 text-white' />
                     </div>
-                    <span className='text-lg font-bold bg-linear-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent'>Planora</span>
+                    <span className='text-lg font-bold bg-linear-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent'>Planora</span>
                 </Link>
                 {data.map((item, index) => (
                     <div key={index} className="max-w-80">
@@ -47,7 +47,7 @@ export default function Footer() {
                         <ul className="mt-5 space-y-2">
                             {item.links.map((link, i) => (
                                 <li key={i}>
-                                    <Link href={link.href} className="hover:text-indigo-500 transition">
+                                    <Link href={link.href} className="hover:text-blue-500 transition">
                                         {link.title}
                                     </Link>
                                 </li>
@@ -72,16 +72,16 @@ export default function Footer() {
                 <p className="text-center">&copy; 2026 Planora. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                     <a href="#" aria-label="Instagram">
-                        <InstagramIcon className="size-5 text-gray-400 hover:text-indigo-500 transition" />
+                        <InstagramIcon className="size-5 text-gray-400 hover:text-blue-500 transition" />
                     </a>
                     <a href="#" aria-label="LinkedIn">
-                        <LinkedinIcon className="size-5 text-gray-400 hover:text-indigo-500 transition" />
+                        <LinkedinIcon className="size-5 text-gray-400 hover:text-blue-500 transition" />
                     </a>
                     <a href="#" aria-label="Twitter">
-                        <TwitterIcon className="size-5 text-gray-400 hover:text-indigo-500 transition" />
+                        <TwitterIcon className="size-5 text-gray-400 hover:text-blue-500 transition" />
                     </a>
                     <a href="#" aria-label="YouTube">
-                        <YoutubeIcon className="size-6 text-gray-400 hover:text-indigo-500 transition" />
+                        <YoutubeIcon className="size-6 text-gray-400 hover:text-blue-500 transition" />
                     </a>
                 </div>
             </div>

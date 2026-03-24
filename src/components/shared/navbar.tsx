@@ -77,10 +77,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
         <>
             <nav className="sticky top-0 z-50 flex w-full items-center justify-between bg-white/80 px-4 py-3.5 backdrop-blur-md md:px-16 lg:px-24">
                 <Link href="/" className="flex items-center gap-2">
-                    <div className="btn flex size-9 items-center justify-center rounded-lg">
-                        <CalendarDays className="size-5 text-white" />
-                    </div>
-                    <span className="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-xl font-bold text-transparent">
+                    <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-3xl font-bold text-transparent">
                         Planora
                     </span>
                 </Link>
@@ -136,7 +133,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                 <div className="hidden items-center gap-3 md:flex">
                     {isLoggedIn ? (
                         <div className="flex items-center gap-3">
-                            <Link href="/dashboard" className="flex items-center gap-2.5 rounded-full border border-gray-200 py-1.5 pr-4 pl-1.5 transition hover:border-indigo-200 hover:bg-indigo-50/50">
+                            <Link href="/dashboard" className="flex items-center gap-2.5 rounded-full border border-gray-200 py-1.5 pr-4 pl-1.5 transition hover:border-blue-200 hover:bg-blue-50/50">
                                 {userImage ? (
                                     <img src={userImage} alt={userName || ''} className="size-8 rounded-full object-cover" />
                                 ) : (

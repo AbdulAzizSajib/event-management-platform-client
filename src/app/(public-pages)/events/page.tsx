@@ -114,14 +114,14 @@ export default function EventsPage() {
                         onClick={() => setShowFilters(!showFilters)}
                         className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm transition ${
                             showFilters
-                                ? 'border-indigo-300 bg-indigo-50 text-indigo-600'
+                                ? 'border-blue-300 bg-blue-50 text-blue-600'
                                 : 'border-gray-200 bg-white text-gray-600'
                         }`}
                     >
                         <SlidersHorizontal className="size-4" />
                         Filters
                         {hasActiveFilters && (
-                            <span className="flex size-5 items-center justify-center rounded-full bg-indigo-600 text-xs text-white">
+                            <span className="flex size-5 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
                                 !
                             </span>
                         )}
@@ -129,13 +129,13 @@ export default function EventsPage() {
                     <div className="flex overflow-hidden rounded-xl border border-gray-200 bg-white">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`px-3 py-3 transition ${viewMode === 'grid' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-400'}`}
+                            className={`px-3 py-3 transition ${viewMode === 'grid' ? 'bg-blue-50 text-blue-600' : 'text-gray-400'}`}
                         >
                             <Grid3X3 className="size-5" />
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`px-3 py-3 transition ${viewMode === 'list' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-400'}`}
+                            className={`px-3 py-3 transition ${viewMode === 'list' ? 'bg-blue-50 text-blue-600' : 'text-gray-400'}`}
                         >
                             <List className="size-5" />
                         </button>
@@ -152,7 +152,7 @@ export default function EventsPage() {
                                 <button
                                     onClick={() => { setSelectedCategory(''); setPage(1); }}
                                     className={`rounded-full px-4 py-1.5 text-sm transition ${
-                                        !selectedCategory ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                        !selectedCategory ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                     }`}
                                 >
                                     All
@@ -164,7 +164,7 @@ export default function EventsPage() {
                                         className={`rounded-full px-4 py-1.5 text-sm transition ${
                                             selectedCategory === cat.id
                                                 ? 'btn text-white'
-                                                : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                                : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                         }`}
                                     >
                                         {cat.name}
@@ -188,7 +188,7 @@ export default function EventsPage() {
                                         className={`rounded-full px-4 py-1.5 text-sm transition ${
                                             typeFilter === opt.value
                                                 ? 'btn text-white'
-                                                : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                                : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                         }`}
                                     >
                                         {opt.label}
@@ -212,7 +212,7 @@ export default function EventsPage() {
                                         className={`rounded-full px-4 py-1.5 text-sm transition ${
                                             featuredFilter === opt.value
                                                 ? 'btn text-white'
-                                                : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                                : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                         }`}
                                     >
                                         {opt.label}
@@ -245,7 +245,7 @@ export default function EventsPage() {
                                         className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-sm transition ${
                                             sortBy === opt.value
                                                 ? 'btn text-white'
-                                                : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                                : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                         }`}
                                     >
                                         {opt.label}
@@ -260,7 +260,7 @@ export default function EventsPage() {
                         {hasActiveFilters && (
                             <button
                                 onClick={clearFilters}
-                                className="text-sm font-medium text-indigo-600 hover:underline"
+                                className="text-sm font-medium text-blue-600 hover:underline"
                             >
                                 Clear all filters
                             </button>
@@ -283,7 +283,7 @@ export default function EventsPage() {
                 {/* Loading */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <Loader2 className="size-8 animate-spin text-indigo-500" />
+                        <Loader2 className="size-8 animate-spin text-blue-500" />
                     </div>
                 ) : events.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -292,7 +292,7 @@ export default function EventsPage() {
                         <p className="mt-1 text-sm text-gray-500">Try adjusting your filters or search terms</p>
                         <button
                             onClick={clearFilters}
-                            className="mt-4 text-sm font-medium text-indigo-600 hover:underline"
+                            className="mt-4 text-sm font-medium text-blue-600 hover:underline"
                         >
                             Clear all filters
                         </button>

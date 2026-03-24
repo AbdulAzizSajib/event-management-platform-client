@@ -136,7 +136,7 @@ export default function CreateEventTab() {
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                        className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                     />
                                     {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                         <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>
@@ -220,7 +220,7 @@ export default function CreateEventTab() {
                             <button
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-indigo-400 hover:text-indigo-500"
+                                className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-blue-400 hover:text-blue-500"
                             >
                                 <ImagePlus className="size-8" />
                                 <span className="text-sm">Click to upload image</span>
@@ -237,7 +237,7 @@ export default function CreateEventTab() {
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value as 'PUBLIC' | 'PRIVATE')}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                 >
                                     <option value="PUBLIC">Public</option>
                                     <option value="PRIVATE">Private</option>
@@ -258,7 +258,7 @@ export default function CreateEventTab() {
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                 >
                                     <option value="">Select category</option>
                                     {categories.map((cat) => (
@@ -286,7 +286,7 @@ export default function CreateEventTab() {
                                     value={field.state.value || ''}
                                     onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                 />
                                 {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                     <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>
@@ -307,7 +307,7 @@ export default function CreateEventTab() {
                                     value={field.state.value || ''}
                                     onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                                 />
                                 {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                     <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>

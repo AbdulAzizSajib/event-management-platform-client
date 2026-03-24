@@ -121,7 +121,7 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Share your experience about this event..."
                         rows={3}
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     />
                 </div>
 

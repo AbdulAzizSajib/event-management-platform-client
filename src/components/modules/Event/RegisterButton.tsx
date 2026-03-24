@@ -96,7 +96,7 @@ export default function RegisterButton({ eventId, fee, spotsLeft }: RegisterButt
                 </div>
                 <a
                     href="/dashboard?tab=registrations"
-                    className="flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200 py-2.5 text-sm font-medium text-indigo-600 transition hover:bg-indigo-50"
+                    className="flex w-full items-center justify-center gap-2 rounded-full border border-blue-200 py-2.5 text-sm font-medium text-blue-600 transition hover:bg-blue-50"
                 >
                     View My Registrations
                 </a>

@@ -65,7 +65,7 @@ export default function SavedTab() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -103,8 +103,8 @@ export default function SavedTab() {
                                         {saved.event.image ? (
                                             <img src={saved.event.image} alt={saved.event.title} className="h-full w-full object-cover transition group-hover:scale-105" />
                                         ) : (
-                                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100 transition group-hover:scale-105">
-                                                <CalendarDays className="size-10 text-indigo-400" />
+                                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-100 transition group-hover:scale-105">
+                                                <CalendarDays className="size-10 text-blue-400" />
                                             </div>
                                         )}
                                         <div className="absolute top-2 left-2 flex gap-1.5">
@@ -114,7 +114,7 @@ export default function SavedTab() {
                                                 </span>
                                             )}
                                             {saved.event.isFeatured && (
-                                                <span className="rounded-full bg-indigo-500 px-2.5 py-0.5 text-xs font-medium text-white">
+                                                <span className="rounded-full bg-blue-500 px-2.5 py-0.5 text-xs font-medium text-white">
                                                     Featured
                                                 </span>
                                             )}
@@ -124,7 +124,7 @@ export default function SavedTab() {
 
                                 <div className="p-4">
                                     <Link href={`/events/${saved.event.id}`}>
-                                        <p className="line-clamp-1 font-semibold text-gray-900 transition group-hover:text-indigo-600">
+                                        <p className="line-clamp-1 font-semibold text-gray-900 transition group-hover:text-blue-600">
                                             {saved.event.title}
                                         </p>
                                         <p className="mt-1 line-clamp-2 text-xs text-gray-500">
@@ -134,28 +134,28 @@ export default function SavedTab() {
 
                                     <div className="mt-3 space-y-1.5 text-xs text-gray-500">
                                         <div className="flex items-center gap-1">
-                                            <CalendarDays className="size-3 text-indigo-400" />
+                                            <CalendarDays className="size-3 text-blue-400" />
                                             {new Date(saved.event.date).toLocaleDateString('en-US', {
                                                 month: 'short',
                                                 day: 'numeric',
                                                 year: 'numeric',
                                             })}
                                             <span className="mx-1">|</span>
-                                            <Clock className="size-3 text-indigo-400" />
+                                            <Clock className="size-3 text-blue-400" />
                                             {saved.event.time}
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <MapPin className="size-3 text-indigo-400" />
+                                            <MapPin className="size-3 text-blue-400" />
                                             <span className="line-clamp-1">{saved.event.venue}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <User className="size-3 text-indigo-400" />
+                                            <User className="size-3 text-blue-400" />
                                             by {saved.event.organizer.name}
                                         </div>
                                     </div>
 
                                     <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
-                                        <span className="text-sm font-bold text-indigo-600">
+                                        <span className="text-sm font-bold text-blue-600">
                                             {isFree ? 'Free' : `৳${fee}`}
                                         </span>
                                         <button

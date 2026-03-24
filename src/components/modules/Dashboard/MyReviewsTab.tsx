@@ -75,7 +75,7 @@ export default function MyReviewsTab() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -111,7 +111,7 @@ export default function MyReviewsTab() {
                         <div>
                             <Link
                                 href={`/events/${review.event.id}`}
-                                className="text-base font-semibold text-gray-900 hover:text-indigo-600"
+                                className="text-base font-semibold text-gray-900 hover:text-blue-600"
                             >
                                 {review.event.title}
                             </Link>
@@ -134,7 +134,7 @@ export default function MyReviewsTab() {
                             <div className="flex items-center gap-1">
                                 <button
                                     onClick={() => startEdit(review)}
-                                    className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-indigo-600"
+                                    className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
                                     title="Edit review"
                                 >
                                     <Pencil className="size-4" />
@@ -184,7 +184,7 @@ export default function MyReviewsTab() {
                                 value={editComment}
                                 onChange={(e) => setEditComment(e.target.value)}
                                 rows={3}
-                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                             />
 
                             {error && (

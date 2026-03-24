@@ -95,7 +95,7 @@ export default function AdminUsers() {
                                 key={r}
                                 onClick={() => { setRoleFilter(r); setPage(1); }}
                                 className={`rounded-full px-3 py-1 text-xs transition ${
-                                    roleFilter === r ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                    roleFilter === r ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                 }`}
                             >
                                 {r || 'All'}
@@ -109,7 +109,7 @@ export default function AdminUsers() {
                                 key={s}
                                 onClick={() => { setStatusFilter(s); setPage(1); }}
                                 className={`rounded-full px-3 py-1 text-xs transition ${
-                                    statusFilter === s ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-indigo-300'
+                                    statusFilter === s ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300'
                                 }`}
                             >
                                 {s || 'All'}
@@ -122,7 +122,7 @@ export default function AdminUsers() {
             {/* Table */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <Loader2 className="size-8 animate-spin text-indigo-500" />
+                    <Loader2 className="size-8 animate-spin text-blue-500" />
                 </div>
             ) : users.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">

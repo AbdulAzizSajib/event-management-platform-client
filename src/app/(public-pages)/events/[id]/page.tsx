@@ -32,7 +32,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <div className="mx-auto max-w-5xl">
                 <Link
                     href="/events"
-                    className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-indigo-600"
+                    className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-blue-600"
                 >
                     <ArrowLeft className="size-4" /> Back to Events
                 </Link>
@@ -42,14 +42,14 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     {event.image ? (
                         <img src={event.image} alt={event.title} className="h-full w-full object-cover" />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-200 to-violet-200">
-                            <CalendarDays className="size-20 text-indigo-400" />
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-200">
+                            <CalendarDays className="size-20 text-blue-400" />
                         </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                         <div className="mb-3 flex flex-wrap gap-2">
-                            <span className="rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">
+                            <span className="rounded-full bg-blue-500 px-3 py-1 text-xs font-medium text-white">
                                 {event.category.name}
                             </span>
                             {event.isFeatured && (
@@ -93,7 +93,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                     href={event.eventLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm text-indigo-600 hover:underline"
+                                    className="text-sm text-blue-600 hover:underline"
                                 >
                                     {event.eventLink}
                                 </a>
@@ -109,8 +109,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                     className="size-14 rounded-full object-cover"
                                 />
                             ) : (
-                                <div className="flex size-14 items-center justify-center rounded-full bg-indigo-100">
-                                    <User className="size-7 text-indigo-600" />
+                                <div className="flex size-14 items-center justify-center rounded-full bg-blue-100">
+                                    <User className="size-7 text-blue-600" />
                                 </div>
                             )}
                             <div>
@@ -173,7 +173,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                             <div className="space-y-5 rounded-xl border border-gray-200 bg-white p-6">
                                 {/* Price */}
                                 <div className="text-center">
-                                    <span className="text-3xl font-bold text-indigo-600">
+                                    <span className="text-3xl font-bold text-blue-600">
                                         {isFree ? 'Free' : `৳${fee}`}
                                     </span>
                                     {!isFree && <span className="ml-1 text-sm text-gray-400">/ person</span>}
@@ -182,7 +182,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                 {/* Event Details */}
                                 <div className="space-y-3 text-sm">
                                     <div className="flex items-center gap-3 text-gray-600">
-                                        <CalendarDays className="size-5 shrink-0 text-indigo-400" />
+                                        <CalendarDays className="size-5 shrink-0 text-blue-400" />
                                         <span>
                                             {new Date(event.date).toLocaleDateString('en-US', {
                                                 weekday: 'long',
@@ -193,15 +193,15 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3 text-gray-600">
-                                        <Clock className="size-5 shrink-0 text-indigo-400" />
+                                        <Clock className="size-5 shrink-0 text-blue-400" />
                                         <span>{event.time}</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-gray-600">
-                                        <MapPin className="size-5 shrink-0 text-indigo-400" />
+                                        <MapPin className="size-5 shrink-0 text-blue-400" />
                                         <span>{event.venue}</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-gray-600">
-                                        <Users className="size-5 shrink-0 text-indigo-400" />
+                                        <Users className="size-5 shrink-0 text-blue-400" />
                                         <span>
                                             {event._count.participants} / {event.maxAttendees} registered
                                         </span>
@@ -214,11 +214,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                         <span className="text-gray-500">
                                             {spotsLeft > 0 ? `${spotsLeft} spots left` : 'Sold out'}
                                         </span>
-                                        <span className="font-medium text-indigo-600">{percentFull}%</span>
+                                        <span className="font-medium text-blue-600">{percentFull}%</span>
                                     </div>
                                     <div className="h-2 overflow-hidden rounded-full bg-gray-100">
                                         <div
-                                            className="h-full rounded-full bg-linear-to-r from-indigo-500 to-violet-500 transition-all"
+                                            className="h-full rounded-full bg-linear-to-r from-blue-600 to-blue-500 transition-all"
                                             style={{ width: `${Math.min(percentFull, 100)}%` }}
                                         />
                                     </div>

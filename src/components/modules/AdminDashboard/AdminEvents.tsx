@@ -84,7 +84,7 @@ export default function AdminEvents() {
             {/* Table */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <Loader2 className="size-8 animate-spin text-indigo-500" />
+                    <Loader2 className="size-8 animate-spin text-blue-500" />
                 </div>
             ) : events.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -129,7 +129,7 @@ export default function AdminEvents() {
                                                         className={`w-fit rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                             event.type === 'PUBLIC'
                                                                 ? 'bg-green-100 text-green-700'
-                                                                : 'bg-violet-100 text-violet-700'
+                                                                : 'bg-blue-100 text-blue-700'
                                                         }`}
                                                     >
                                                         {event.type}
@@ -175,7 +175,7 @@ export default function AdminEvents() {
                                                 <div className="flex items-center gap-1">
                                                     <Link
                                                         href={`/events/${event.id}`}
-                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-indigo-600"
+                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
                                                     >
                                                         <Eye className="size-4" />
                                                     </Link>

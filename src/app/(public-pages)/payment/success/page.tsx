@@ -47,7 +47,7 @@ export default function PaymentSuccessPage() {
         return (
             <div className="flex min-h-[60vh] items-center justify-center px-4">
                 <div className="flex flex-col items-center gap-4 text-center">
-                    <Loader2 className="size-10 animate-spin text-indigo-500" />
+                    <Loader2 className="size-10 animate-spin text-blue-500" />
                     <h2 className="text-lg font-semibold text-gray-900">Verifying your payment...</h2>
                     <p className="text-sm text-gray-500">Please wait while we confirm your transaction.</p>
                 </div>
@@ -95,7 +95,7 @@ export default function PaymentSuccessPage() {
                 <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                     <div className="mb-4 border-b border-gray-100 pb-4 text-center">
                         <p className="text-sm text-gray-500">Amount Paid</p>
-                        <p className="mt-1 text-3xl font-bold text-indigo-600">৳{amount}</p>
+                        <p className="mt-1 text-3xl font-bold text-blue-600">৳{amount}</p>
                     </div>
 
                     <div className="space-y-3 text-sm">

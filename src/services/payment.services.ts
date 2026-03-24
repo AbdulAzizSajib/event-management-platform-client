@@ -61,3 +61,44 @@ export const getMyPayments = async () => {
 export const getPaymentsByEvent = async (eventId: string) => {
     return httpClient.get<PaymentData[]>(`/payments/event/${eventId}`);
 };
+
+export interface PaymentReceipt {
+    paymentId: string;
+    transactionId: string;
+    amount: string;
+    method: string;
+    status: string;
+    paidAt: string;
+    ticket: {
+        participantStatus: string;
+        joinedAt: string;
+    };
+    event: {
+        id: string;
+        title: string;
+        description: string;
+        date: string;
+        time: string;
+        venue: string;
+        eventLink: string | null;
+        type: string;
+        fee: string;
+        image: string | null;
+        organizer: {
+            id: string;
+            name: string;
+            email: string;
+            image: string | null;
+        };
+    };
+    user: {
+        id: string;
+        name: string;
+        email: string;
+        image: string | null;
+    };
+}
+
+export const getPaymentReceipt = async (paymentId: string) => {
+    return httpClient.get<PaymentReceipt>(`/payments/receipt/${paymentId}`);
+};

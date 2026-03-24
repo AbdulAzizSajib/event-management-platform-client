@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CalendarDays, Ticket, Heart, PlusCircle, Settings, BarChart3, User, Star } from 'lucide-react';
+import { CalendarDays, Ticket, Heart, PlusCircle, Settings, BarChart3, User, Star, Banknote } from 'lucide-react';
 import OverviewTab from '@/components/modules/Dashboard/OverviewTab';
 import MyEventsTab from '@/components/modules/Dashboard/MyEventsTab';
 import RegistrationsTab from '@/components/modules/Dashboard/RegistrationsTab';
@@ -9,12 +9,14 @@ import SavedTab from '@/components/modules/Dashboard/SavedTab';
 import CreateEventTab from '@/components/modules/Dashboard/CreateEventTab';
 import SettingsTab from '@/components/modules/Dashboard/SettingsTab';
 import MyReviewsTab from '@/components/modules/Dashboard/MyReviewsTab';
+import MyPaymentsTab from '@/components/modules/Dashboard/MyPaymentsTab';
 
 const tabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'my-events', label: 'My Events', icon: CalendarDays },
     { id: 'my-reviews', label: 'My Reviews', icon: Star },
-    { id: 'registrations', label: 'Registrations', icon: Ticket },
+    { id: 'my-registrations', label: 'My Registrations', icon: Ticket },
+    { id: 'my-payments', label: 'My Payments', icon: Banknote },
     { id: 'saved', label: 'Saved', icon: Heart },
     { id: 'create', label: 'Create Event', icon: PlusCircle },
     { id: 'settings', label: 'Settings', icon: Settings },
@@ -34,7 +36,7 @@ export default function DashboardPage() {
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition ${
                                 activeTab === tab.id
-                                    ? 'border-indigo-600 text-indigo-600'
+                                    ? 'border-blue-600 text-blue-600'
                                     : 'border-transparent text-gray-500 hover:text-gray-700'
                             }`}
                         >
@@ -48,7 +50,8 @@ export default function DashboardPage() {
                 {activeTab === 'overview' && <OverviewTab />}
                 {activeTab === 'my-events' && <MyEventsTab />}
                 {activeTab === 'my-reviews' && <MyReviewsTab />}
-                {activeTab === 'registrations' && <RegistrationsTab />}
+                {activeTab === 'my-registrations' && <RegistrationsTab />}
+                {activeTab === 'my-payments' && <MyPaymentsTab />}
                 {activeTab === 'saved' && <SavedTab />}
                 {activeTab === 'create' && <CreateEventTab />}
                 {activeTab === 'settings' && <SettingsTab />}

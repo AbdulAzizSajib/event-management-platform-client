@@ -21,9 +21,9 @@ export const categories: Category[] = [
     { id: '3', name: 'Business', icon: '💼', color: 'bg-amber-100 text-amber-700', eventCount: 27 },
     { id: '4', name: 'Sports', icon: '⚽', color: 'bg-green-100 text-green-700', eventCount: 31 },
     { id: '5', name: 'Art & Design', icon: '🎨', color: 'bg-pink-100 text-pink-700', eventCount: 19 },
-    { id: '6', name: 'Food & Drink', icon: '🍕', color: 'bg-orange-100 text-orange-700', eventCount: 24 },
+    { id: '6', name: 'Food & Drink', icon: '🍕', color: 'bg-blue-100 text-blue-700', eventCount: 24 },
     { id: '7', name: 'Health', icon: '🧘', color: 'bg-teal-100 text-teal-700', eventCount: 16 },
-    { id: '8', name: 'Education', icon: '📚', color: 'bg-indigo-100 text-indigo-700', eventCount: 22 },
+    { id: '8', name: 'Education', icon: '📚', color: 'bg-blue-100 text-blue-700', eventCount: 22 },
 ];
 
 // ==================== USERS ====================

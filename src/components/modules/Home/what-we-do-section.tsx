@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function WhatWeDoSection() {
     return (
         <section className="flex flex-col md:flex-row items-center justify-center gap-20 mt-20">
-            <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
+            <div className="relative shadow-2xl shadow-blue-600/40 rounded-2xl overflow-hidden shrink-0">
                 <img className="max-w-sm w-full object-cover rounded-2xl"
                     src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=451&h=451&auto=format&fit=crop"
                     alt="event" />
@@ -18,7 +18,7 @@ export default function WhatWeDoSection() {
                             alt="attendee"
                             className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[3]" />
                         <div
-                            className="flex items-center justify-center text-xs text-white size-9 rounded-full border-[3px] border-white bg-indigo-600 hover:-translate-y-1 transition z-[4]">
+                            className="flex items-center justify-center text-xs text-white size-9 rounded-full border-[3px] border-white bg-blue-600 hover:-translate-y-1 transition z-[4]">
                             50+
                         </div>
                     </div>
@@ -27,7 +27,7 @@ export default function WhatWeDoSection() {
             </div>
             <div className="text-sm text-slate-600 max-w-md">
                 <h2 className="text-xl uppercase font-semibold text-slate-700">Why Planora?</h2>
-                <div className="w-24 h-[3px] rounded-full bg-linear-to-r from-indigo-600 to-[#DDD9FF]"></div>
+                <div className="w-24 h-[3px] rounded-full bg-linear-to-r from-blue-500 to-indigo-300"></div>
                 <p className="mt-8">Planora empowers you to create, discover, and manage events effortlessly. Whether you&apos;re hosting a small workshop or a large conference, our tools make it simple.</p>
                 <p className="mt-4">With powerful registration management, real-time analytics, and seamless payment processing, focus on what matters most - creating amazing experiences.</p>
                 <p className="mt-4">From event discovery to post-event reviews, Planora is the complete platform for building thriving communities through memorable events.</p>

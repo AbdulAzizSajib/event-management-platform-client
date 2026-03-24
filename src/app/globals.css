@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: 'Urbanist', sans-serif;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 }
 
 .btn {
-    @apply cursor-pointer bg-linear-to-r from-indigo-600 to-[#8A7DFF];
+    @apply cursor-pointer bg-linear-to-r from-blue-600 to-indigo-500;
 }
 
 /* Smooth scrollbar */

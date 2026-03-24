@@ -29,7 +29,7 @@ export default function AdminOverview() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="size-8 animate-spin text-indigo-500" />
+                <Loader2 className="size-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -40,7 +40,7 @@ export default function AdminOverview() {
 
     const stats = [
         { label: 'Total Users', value: data.counts.totalUsers, icon: Users, color: 'text-blue-600 bg-blue-50' },
-        { label: 'Total Events', value: data.counts.totalEvents, icon: CalendarDays, color: 'text-indigo-600 bg-indigo-50' },
+        { label: 'Total Events', value: data.counts.totalEvents, icon: CalendarDays, color: 'text-blue-600 bg-blue-50' },
         { label: 'Total Reviews', value: data.counts.totalReviews, icon: Star, color: 'text-amber-600 bg-amber-50' },
         { label: 'Total Payments', value: data.counts.totalPayments, icon: CreditCard, color: 'text-green-600 bg-green-50' },
         { label: 'Active Users', value: data.counts.activeUsers, icon: UserCheck, color: 'text-emerald-600 bg-emerald-50' },
@@ -89,11 +89,11 @@ export default function AdminOverview() {
                                                     href={`/events/${event.id}`}
                                                     className="flex items-center gap-3"
                                                 >
-                                                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-indigo-50">
-                                                        <CalendarDays className="size-4 text-indigo-500" />
+                                                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-50">
+                                                        <CalendarDays className="size-4 text-blue-500" />
                                                     </div>
                                                     <div>
-                                                        <p className="font-medium text-gray-900 hover:text-indigo-600">
+                                                        <p className="font-medium text-gray-900 hover:text-blue-600">
                                                             {event.title}
                                                         </p>
                                                         {event.isFeatured && (
@@ -107,7 +107,7 @@ export default function AdminOverview() {
                                                     className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                         event.type === 'PUBLIC'
                                                             ? 'bg-green-100 text-green-700'
-                                                            : 'bg-violet-100 text-violet-700'
+                                                            : 'bg-blue-100 text-blue-700'
                                                     }`}
                                                 >
                                                     {event.type}
