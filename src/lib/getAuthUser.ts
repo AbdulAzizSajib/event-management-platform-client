@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { jwtUtils } from './jwtUtils';
+import { httpClient } from './axios/httpClient';
 
 export interface AuthUser {
     name: string;
@@ -17,15 +17,14 @@ export async function getAuthUser(): Promise<AuthUser | null> {
 
         if (!accessToken) return null;
 
-        const result = jwtUtils.verifyToken(accessToken, process.env.JWT_ACCESS_SECRET as string);
-
-        if (!result.success || !result.data) return null;
+        const res = await httpClient.get('/auth/me');
+        const user = res.data;
 
         return {
-            name: result.data.name as string,
-            email: result.data.email as string,
-            role: result.data.role as string,
-            image: (result.data.image as string) || null,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            image: user.image || null,
         };
     } catch {
         return null;

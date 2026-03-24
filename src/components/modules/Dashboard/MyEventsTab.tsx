@@ -15,6 +15,7 @@ interface MyEvent {
     type: string;
     fee: string;
     maxAttendees: number;
+    image: string | null;
     isFeatured: boolean;
     _count: {
         participants: number;

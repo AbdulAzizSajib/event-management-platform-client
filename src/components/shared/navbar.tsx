@@ -7,7 +7,6 @@ import {
     ChevronDown,
     CalendarDays,
     Compass,
-    LayoutDashboard,
     PlusCircle,
     Ticket,
     Heart,
@@ -136,50 +135,29 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                 {/* Desktop Auth Buttons */}
                 <div className="hidden items-center gap-3 md:flex">
                     {isLoggedIn ? (
-                        <div
-                            className="group relative"
-                            onMouseEnter={() => setOpenDropdown('user')}
-                            onMouseLeave={() => setOpenDropdown(null)}
-                        >
-                            <button className="flex cursor-pointer items-center gap-2">
+                        <div className="flex items-center gap-3">
+                            <Link href="/dashboard" className="flex items-center gap-2.5 rounded-full border border-gray-200 py-1.5 pr-4 pl-1.5 transition hover:border-indigo-200 hover:bg-indigo-50/50">
                                 {userImage ? (
-                                    <img src={userImage} alt={userName || ''} className="size-9 rounded-full object-cover" />
+                                    <img src={userImage} alt={userName || ''} className="size-8 rounded-full object-cover" />
                                 ) : (
-                                    <div className="btn flex size-9 items-center justify-center rounded-full text-xs font-semibold text-white">
+                                    <div className="btn flex size-8 items-center justify-center rounded-full text-xs font-semibold text-white">
                                         {initials}
                                     </div>
                                 )}
-                                <ChevronDown
-                                    className={`size-4 text-gray-500 transition-transform ${openDropdown === 'user' ? 'rotate-180' : ''}`}
-                                />
-                            </button>
-
-                            <div
-                                className={`absolute top-10 right-0 z-40 w-56 rounded-xl border border-gray-100 bg-white p-2 shadow-lg transition-all duration-200 ${openDropdown === 'user' ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'}`}
+                                <span className="text-sm font-medium text-gray-700">{userName}</span>
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                disabled={isPending}
+                                className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
                             >
-                                <div className="border-b border-gray-100 px-3 py-2">
-                                    <p className="text-sm font-medium text-gray-900">{userName}</p>
-                                </div>
-                                <Link
-                                    href="/dashboard"
-                                    className="mt-1 flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 transition hover:bg-gray-50"
-                                >
-                                    <LayoutDashboard className="size-4" />
-                                    Dashboard
-                                </Link>
-                                <button
-                                    onClick={handleLogout}
-                                    disabled={isPending}
-                                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 transition hover:bg-red-50 disabled:opacity-50"
-                                >
-                                    {isPending ? (
-                                        <Loader2 className="size-4 animate-spin" />
-                                    ) : (
-                                        <LogOut className="size-4" />
-                                    )}
-                                    {isPending ? 'Logging out...' : 'Logout'}
-                                </button>
-                            </div>
+                                {isPending ? (
+                                    <Loader2 className="size-4 animate-spin" />
+                                ) : (
+                                    <LogOut className="size-4" />
+                                )}
+                                {isPending ? 'Logging out...' : 'Logout'}
+                            </button>
                         </div>
                     ) : (
                         <>

@@ -27,7 +27,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                 <div className="relative h-48 shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-56">
                     {event.image ? (
                         <img
-                            src={event.organizer.image}
+                            src={event.image as string}
                             alt={event.title}
                             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
@@ -88,7 +88,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
             <div className="relative h-48 overflow-hidden">
                 {event.image ? (
                     <img
-                        src={event.organizer.image}
+                        src={event.image as string}
                         alt={event.title}
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />

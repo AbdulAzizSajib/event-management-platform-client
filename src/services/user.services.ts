@@ -17,7 +17,7 @@ export interface UserProfile {
 export interface UpdateProfilePayload {
     name?: string;
     phone?: string;
-    image?: string;
+    image?: File | null;
 }
 
 export const getMyProfile = async () => {
@@ -25,5 +25,12 @@ export const getMyProfile = async () => {
 };
 
 export const updateProfile = async (data: UpdateProfilePayload) => {
-    return httpClient.patch<UserProfile>('/users/profile', data);
+    const formData = new FormData();
+    if (data.name) formData.append('name', data.name);
+    if (data.phone) formData.append('phone', data.phone);
+    if (data.image) formData.append('image', data.image);
+
+    return httpClient.patch<UserProfile>('/users/profile', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
 };
