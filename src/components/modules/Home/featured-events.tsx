@@ -15,7 +15,7 @@ export default async function FeaturedEvents() {
                 title="Featured Events"
                 subtitle="Hand-picked events that you won't want to miss. From tech conferences to music festivals, find your next experience."
             />
-            <div className="mt-12 flex w-full max-w-6xl flex-wrap items-stretch justify-center gap-6">
+            <div className="mt-12 flex w-full max-w-6xl   flex-wrap items-stretch justify-center gap-6">
                 {featured.length > 0 ? (
                     featured.map((event) => (
                         <EventCard key={event.id} event={event} />

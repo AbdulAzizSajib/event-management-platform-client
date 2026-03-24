@@ -8,22 +8,6 @@ export default function WhatWeDoSection() {
                 <img className="max-w-sm w-full object-cover rounded-2xl"
                     src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=451&h=451&auto=format&fit=crop"
                     alt="event" />
-                <div className="flex items-center gap-1 max-w-72 absolute bottom-8 left-8 bg-white p-4 rounded-xl">
-                    <div className="flex -space-x-4 shrink-0">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&auto=format&fit=crop" alt="attendee"
-                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-1" />
-                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=200&h=200&auto=format&fit=crop" alt="attendee"
-                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[2]" />
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&auto=format&fit=crop"
-                            alt="attendee"
-                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[3]" />
-                        <div
-                            className="flex items-center justify-center text-xs text-white size-9 rounded-full border-[3px] border-white bg-blue-600 hover:-translate-y-1 transition z-[4]">
-                            50+
-                        </div>
-                    </div>
-                    <p className="text-sm font-medium text-slate-800">Join our growing community</p>
-                </div>
             </div>
             <div className="text-sm text-slate-600 max-w-md">
                 <h2 className="text-xl uppercase font-semibold text-slate-700">Why Planora?</h2>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Search, SlidersHorizontal, X, CalendarDays, Grid3X3, List, ChevronLeft, ChevronRight, ArrowUpDown, Loader2 } from 'lucide-react';
 import EventCard from '@/components/shared/event-card';
 import { getAllEvents } from '@/services/event.services';
@@ -9,6 +10,9 @@ import type { Event, Category } from '@/types';
 import type { PaginationMeta } from '@/types/api.types';
 
 export default function EventsPage() {
+    const searchParams = useSearchParams();
+    const categoryFromUrl = searchParams.get('categoryId') || '';
+
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [meta, setMeta] = useState<PaginationMeta | null>(null);
@@ -16,7 +20,7 @@ export default function EventsPage() {
 
     // Filters
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl);
     const [typeFilter, setTypeFilter] = useState<'' | 'PUBLIC' | 'PRIVATE'>('');
     const [featuredFilter, setFeaturedFilter] = useState<'' | 'true' | 'false'>('');
     const [sortBy, setSortBy] = useState('createdAt');
@@ -35,6 +39,14 @@ export default function EventsPage() {
         }, 400);
         return () => clearTimeout(timer);
     }, [searchTerm]);
+
+    // Sync category from URL
+    useEffect(() => {
+        if (categoryFromUrl) {
+            setSelectedCategory(categoryFromUrl);
+            setShowFilters(true);
+        }
+    }, [categoryFromUrl]);
 
     // Fetch categories once
     useEffect(() => {
