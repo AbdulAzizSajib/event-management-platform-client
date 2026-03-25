@@ -39,6 +39,25 @@ export interface CreateEventPayload {
     image?: File;
 }
 
+export const updateEvent = async (id: string, data: Partial<CreateEventPayload>) => {
+    const formData = new FormData();
+    if (data.title) formData.append('title', data.title);
+    if (data.description) formData.append('description', data.description);
+    if (data.date) formData.append('date', data.date);
+    if (data.time) formData.append('time', data.time);
+    if (data.venue) formData.append('venue', data.venue);
+    if (data.type) formData.append('type', data.type);
+    if (data.fee !== undefined) formData.append('fee', String(data.fee));
+    if (data.maxAttendees !== undefined) formData.append('maxAttendees', String(data.maxAttendees));
+    if (data.categoryId) formData.append('categoryId', data.categoryId);
+    if (data.eventLink) formData.append('eventLink', data.eventLink);
+    if (data.image) formData.append('image', data.image);
+
+    return httpClient.patch<Event>(`/events/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+
 export const createEvent = async (data: CreateEventPayload) => {
     const formData = new FormData();
     formData.append('title', data.title);

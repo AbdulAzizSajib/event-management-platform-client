@@ -4,6 +4,7 @@ import { CalendarDays, PlusCircle, Users, MapPin, Eye, Edit, Trash2, Loader2 } f
 import { deleteEvent, getMyEvents } from '@/services/event.services';
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
+import EditEventModal from './EditEventModal';
 
 interface MyEvent {
     id: string;
@@ -27,6 +28,7 @@ export default function MyEventsTab() {
     const [events, setEvents] = useState<MyEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [editingEventId, setEditingEventId] = useState<string | null>(null);
 
     const fetchEvents = useCallback(() => {
         setLoading(true);
@@ -63,6 +65,7 @@ export default function MyEventsTab() {
     }
 
     return (
+        <>
         <div>
             <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">My Events ({events.length})</h2>
@@ -142,7 +145,10 @@ export default function MyEventsTab() {
                                     >
                                         <Eye className="size-4" />
                                     </Link>
-                                    <button className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600">
+                                    <button
+                                        onClick={() => setEditingEventId(event.id)}
+                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
+                                    >
                                         <Edit className="size-4" />
                                     </button>
                                     <button
@@ -163,5 +169,14 @@ export default function MyEventsTab() {
                 </div>
             )}
         </div>
+
+            {editingEventId && (
+                <EditEventModal
+                    eventId={editingEventId}
+                    onClose={() => setEditingEventId(null)}
+                    onSuccess={fetchEvents}
+                />
+            )}
+        </>
     );
 }

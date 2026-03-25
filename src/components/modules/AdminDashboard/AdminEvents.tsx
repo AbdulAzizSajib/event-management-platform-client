@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Search, CalendarDays, Users, CreditCard, Loader2, X, ChevronLeft, ChevronRight, Eye, Star, Trash2 } from 'lucide-react';
-import { getAdminEvents, deleteAdminEvent, type AdminEvent } from '@/services/admin.services';
+import { getAdminEvents, deleteAdminEvent, toggleFeaturedEvent, type AdminEvent } from '@/services/admin.services';
 import type { PaginationMeta } from '@/types/api.types';
 import Link from 'next/link';
 
@@ -12,6 +12,7 @@ export default function AdminEvents() {
     const [loading, setLoading] = useState(true);
 
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [togglingFeaturedId, setTogglingFeaturedId] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [page, setPage] = useState(1);
@@ -43,6 +44,20 @@ export default function AdminEvents() {
     useEffect(() => {
         fetchEvents();
     }, [fetchEvents]);
+
+    const handleToggleFeatured = async (id: string) => {
+        setTogglingFeaturedId(id);
+        try {
+            await toggleFeaturedEvent(id);
+            setEvents((prev) =>
+                prev.map((e) => (e.id === id ? { ...e, isFeatured: !e.isFeatured } : e))
+            );
+        } catch {
+            alert('Failed to update featured status');
+        } finally {
+            setTogglingFeaturedId(null);
+        }
+    };
 
     const handleDelete = async (id: string, title: string) => {
         if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
@@ -179,6 +194,22 @@ export default function AdminEvents() {
                                                     >
                                                         <Eye className="size-4" />
                                                     </Link>
+                                                    <button
+                                                        onClick={() => handleToggleFeatured(event.id)}
+                                                        disabled={togglingFeaturedId === event.id}
+                                                        title={event.isFeatured ? 'Unfeature' : 'Feature'}
+                                                        className={`rounded-lg p-1.5 transition disabled:opacity-50 ${
+                                                            event.isFeatured
+                                                                ? 'text-amber-400 hover:bg-amber-50 hover:text-amber-600'
+                                                                : 'text-gray-400 hover:bg-amber-50 hover:text-amber-500'
+                                                        }`}
+                                                    >
+                                                        {togglingFeaturedId === event.id ? (
+                                                            <Loader2 className="size-4 animate-spin" />
+                                                        ) : (
+                                                            <Star className={`size-4 ${event.isFeatured ? 'fill-current' : ''}`} />
+                                                        )}
+                                                    </button>
                                                     <button
                                                         onClick={() => handleDelete(event.id, event.title)}
                                                         disabled={deletingId === event.id}

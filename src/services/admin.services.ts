@@ -136,3 +136,7 @@ export const getAdminEvents = async (params?: Record<string, unknown>) => {
 export const deleteAdminEvent = async (eventId: string) => {
     return httpClient.delete(`/admin/events/${eventId}`);
 };
+
+export const toggleFeaturedEvent = async (eventId: string) => {
+    return httpClient.patch(`/events/${eventId}/toggle-featured`);
+};
