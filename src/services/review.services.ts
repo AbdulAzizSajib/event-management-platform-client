@@ -42,6 +42,27 @@ export const createReview = async (
     }
 };
 
+export interface FeaturedReview {
+    id: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    user: {
+        id: string;
+        name: string;
+        image: string | null;
+    };
+    event: {
+        id: string;
+        title: string;
+        image: string | null;
+    };
+}
+
+export const getFeaturedReviews = async () => {
+    return httpClient.get<FeaturedReview[]>('/reviews/featured');
+};
+
 export const getMyReviews = async (params?: Record<string, unknown>) => {
     return httpClient.get<MyReview[]>('/reviews/my-reviews', { params });
 };

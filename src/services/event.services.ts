@@ -3,6 +3,17 @@
 import { httpClient } from '@/lib/axios/httpClient';
 import type { Event, EventDetail } from '@/types';
 
+export interface PlatformStats {
+    totalUsers: number;
+    totalEvents: number;
+    totalTicketsSold: number;
+    avgRating: number;
+}
+
+export const getPlatformStats = async () => {
+    return httpClient.get<PlatformStats>('/events/platform-stats');
+};
+
 export const getAllEvents = async (params?: Record<string, unknown>) => {
     return httpClient.get<Event[]>('/events', { params });
 };
