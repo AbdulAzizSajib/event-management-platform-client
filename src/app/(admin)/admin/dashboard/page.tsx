@@ -6,12 +6,14 @@ import AdminOverview from '@/components/modules/AdminDashboard/AdminOverview';
 import AdminUsers from '@/components/modules/AdminDashboard/AdminUsers';
 import AdminEvents from '@/components/modules/AdminDashboard/AdminEvents';
 import AdminReports from '@/components/modules/AdminDashboard/AdminReports';
+import AdminCreateCategories from '@/components/modules/AdminDashboard/AdminCreateCategories';
 
 const adminTabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'events', label: 'Events', icon: CalendarDays },
     { id: 'reports', label: 'Reports', icon: AlertTriangle },
+    { id: 'create-categories', label: 'Create Categories', icon: Shield },
 ];
 
 export default function AdminPage() {
@@ -51,6 +53,7 @@ export default function AdminPage() {
                 {activeTab === 'users' && <AdminUsers />}
                 {activeTab === 'events' && <AdminEvents />}
                 {activeTab === 'reports' && <AdminReports />}
+                {activeTab === 'create-categories' && <AdminCreateCategories />}
             </div>
         </div>
     );
