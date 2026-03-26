@@ -59,14 +59,14 @@ export default function OverviewTab() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {stats.map((stat) => (
-                    <div key={stat.label} className="rounded-xl border border-gray-200 bg-white p-5">
+                    <div key={stat.label} className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
                         <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-500">{stat.label}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{stat.label}</p>
                             <div className={`flex size-10 items-center justify-center rounded-lg ${stat.color}`}>
                                 <stat.icon className="size-5" />
                             </div>
                         </div>
-                        <p className="mt-2 text-2xl font-bold text-gray-900">{stat.value}</p>
+                        <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
                     </div>
                 ))}
             </div>
@@ -74,47 +74,47 @@ export default function OverviewTab() {
             {/* Upcoming + Participation Breakdown */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {/* Upcoming */}
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
-                    <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+                    <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
                         <Clock className="size-4 text-blue-500" />
                         Upcoming
                     </h3>
                     <div className="space-y-3">
                         <div className="flex items-center justify-between rounded-lg bg-blue-50 px-4 py-3">
-                            <span className="text-sm text-gray-700">Events you organized</span>
+                            <span className="text-sm text-gray-700 dark:text-gray-300">Events you organized</span>
                             <span className="text-lg font-bold text-blue-600">{data.upcoming.organizedEvents}</span>
                         </div>
                         <div className="flex items-center justify-between rounded-lg bg-green-50 px-4 py-3">
-                            <span className="text-sm text-gray-700">Events you&apos;re attending</span>
+                            <span className="text-sm text-gray-700 dark:text-gray-300">Events you&apos;re attending</span>
                             <span className="text-lg font-bold text-green-600">{data.upcoming.participatingEvents}</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Participation Breakdown */}
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
-                    <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+                    <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
                         <Users className="size-4 text-blue-500" />
                         Participation Status
                     </h3>
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-2 text-sm text-gray-600">
+                            <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                                 <CheckCircle className="size-4 text-green-500" /> Approved
                             </span>
-                            <span className="text-sm font-semibold text-gray-900">{data.participationBreakdown.approved}</span>
+                            <span className="text-sm font-semibold text-gray-900 dark:text-white">{data.participationBreakdown.approved}</span>
                         </div>
                         <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-2 text-sm text-gray-600">
+                            <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                                 <AlertCircle className="size-4 text-amber-500" /> Pending
                             </span>
-                            <span className="text-sm font-semibold text-gray-900">{data.participationBreakdown.pending}</span>
+                            <span className="text-sm font-semibold text-gray-900 dark:text-white">{data.participationBreakdown.pending}</span>
                         </div>
                         <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-2 text-sm text-gray-600">
+                            <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                                 <XCircle className="size-4 text-red-500" /> Rejected
                             </span>
-                            <span className="text-sm font-semibold text-gray-900">{data.participationBreakdown.rejected}</span>
+                            <span className="text-sm font-semibold text-gray-900 dark:text-white">{data.participationBreakdown.rejected}</span>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ export default function OverviewTab() {
             {data.recentParticipations.length > 0 && (
                 <div>
                     <div className="mb-4 flex items-center justify-between">
-                        <h3 className="text-base font-semibold text-gray-900">Recent Participations</h3>
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">Recent Participations</h3>
                         <Link href="/dashboard?tab=registrations" className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline">
                             View all <ArrowRight className="size-3" />
                         </Link>
@@ -134,7 +134,7 @@ export default function OverviewTab() {
                             <Link
                                 key={p.id}
                                 href={`/events/${p.event.id}`}
-                                className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm"
+                                className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm dark:border-gray-800 dark:bg-gray-900"
                             >
                                 {p.event.image ? (
                                     <img src={p.event.image} alt={p.event.title} className="size-12 shrink-0 rounded-lg object-cover" />
@@ -144,7 +144,7 @@ export default function OverviewTab() {
                                     </div>
                                 )}
                                 <div className="min-w-0 flex-1">
-                                    <p className="truncate font-medium text-gray-900">{p.event.title}</p>
+                                    <p className="truncate font-medium text-gray-900 dark:text-white">{p.event.title}</p>
                                     <div className="mt-1 flex items-center gap-3 text-xs text-gray-500">
                                         <span className="flex items-center gap-1">
                                             <CalendarDays className="size-3" />
@@ -180,7 +180,7 @@ export default function OverviewTab() {
             {data.recentOrganizedEvents.length > 0 && (
                 <div>
                     <div className="mb-4 flex items-center justify-between">
-                        <h3 className="text-base font-semibold text-gray-900">My Organized Events</h3>
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">My Organized Events</h3>
                         <Link href="/dashboard?tab=my-events" className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline">
                             View all <ArrowRight className="size-3" />
                         </Link>
@@ -192,7 +192,7 @@ export default function OverviewTab() {
                                 <Link
                                     key={e.id}
                                     href={`/events/${e.id}`}
-                                    className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm"
+                                    className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm dark:border-gray-800 dark:bg-gray-900"
                                 >
                                     {e.image ? (
                                         <img src={e.image} alt={e.title} className="size-12 shrink-0 rounded-lg object-cover" />
@@ -202,7 +202,7 @@ export default function OverviewTab() {
                                         </div>
                                     )}
                                     <div className="min-w-0 flex-1">
-                                        <p className="truncate font-medium text-gray-900">{e.title}</p>
+                                        <p className="truncate font-medium text-gray-900 dark:text-white">{e.title}</p>
                                         <div className="mt-1 flex items-center gap-3 text-xs text-gray-500">
                                             <span className="flex items-center gap-1">
                                                 <CalendarDays className="size-3" />
@@ -231,7 +231,7 @@ export default function OverviewTab() {
             {data.recentSavedEvents.length > 0 && (
                 <div>
                     <div className="mb-4 flex items-center justify-between">
-                        <h3 className="text-base font-semibold text-gray-900">Recently Saved</h3>
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">Recently Saved</h3>
                         <Link href="/dashboard?tab=saved" className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline">
                             View all <ArrowRight className="size-3" />
                         </Link>
@@ -243,11 +243,11 @@ export default function OverviewTab() {
                                 <Link
                                     key={s.id}
                                     href={`/events/${s.event.id}`}
-                                    className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm"
+                                    className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm dark:border-gray-800 dark:bg-gray-900"
                                 >
                                     <Heart className="size-5 shrink-0 fill-red-400 text-red-400" />
                                     <div className="min-w-0 flex-1">
-                                        <p className="truncate text-sm font-medium text-gray-900">{s.event.title}</p>
+                                        <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{s.event.title}</p>
                                         <div className="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
                                             <span>{new Date(s.event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                                             <span>{s.event.venue}</span>

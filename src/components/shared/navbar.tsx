@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useTransition } from 'react';
+import ThemeToggle from './theme-toggle';
 
 interface SubLink {
     name: string;
@@ -75,7 +76,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
 
     return (
         <>
-            <nav className="sticky top-0 z-50 flex w-full items-center justify-between bg-white/80 px-4 py-3.5 backdrop-blur-md md:px-16 lg:px-24">
+            <nav className="sticky top-0 z-50 flex w-full items-center justify-between bg-white/80 px-4 py-3.5 backdrop-blur-md md:px-16 lg:px-24 dark:bg-gray-950/80">
                 <Link href="/" className="flex items-center gap-2">
                     <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-3xl font-bold text-transparent">
                         Planora
@@ -83,7 +84,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                 </Link>
 
                 {/* Desktop Nav Links */}
-                <div className="hidden items-center space-x-7 text-gray-700 md:flex">
+                <div className="hidden items-center space-x-7 text-gray-700 md:flex dark:text-gray-300">
                     {links.map((link) =>
                         link.subLinks ? (
                             <div
@@ -92,29 +93,29 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                                 onMouseEnter={() => setOpenDropdown(link.name)}
                                 onMouseLeave={() => setOpenDropdown(null)}
                             >
-                                <div className="flex cursor-pointer items-center gap-1 hover:text-black">
+                                <div className="flex cursor-pointer items-center gap-1 hover:text-black dark:hover:text-white">
                                     {link.name}
                                     <ChevronDown
                                         className={`mt-px size-4 transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''}`}
                                     />
                                 </div>
                                 <div
-                                    className={`absolute top-6 left-0 z-40 w-lg rounded-md border border-gray-100 bg-white p-3 shadow-lg transition-all duration-200 ease-in-out ${openDropdown === link.name ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'}`}
+                                    className={`absolute top-6 left-0 z-40 w-lg rounded-md border border-gray-100 bg-white p-3 shadow-lg transition-all duration-200 ease-in-out dark:border-gray-800 dark:bg-gray-900 ${openDropdown === link.name ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'}`}
                                 >
-                                    <p className="text-sm text-gray-500">Explore Planora</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Explore Planora</p>
                                     <div className="mt-3 grid grid-cols-2 gap-2">
                                         {link.subLinks.map((sub) => (
                                             <Link
                                                 href={sub.href}
                                                 key={sub.name}
-                                                className="group/link flex items-center gap-2 rounded-md p-2 transition hover:bg-gray-100"
+                                                className="group/link flex items-center gap-2 rounded-md p-2 transition hover:bg-gray-100 dark:hover:bg-gray-800"
                                             >
                                                 <div className="btn w-max gap-1 rounded-md p-2">
                                                     <sub.icon className="size-4.5 text-white transition duration-300 group-hover/link:scale-110" />
                                                 </div>
                                                 <div>
-                                                    <p className="font-medium">{sub.name}</p>
-                                                    <p className="font-light text-gray-400">{sub.description}</p>
+                                                    <p className="font-medium dark:text-gray-200">{sub.name}</p>
+                                                    <p className="font-light text-gray-400 dark:text-gray-500">{sub.description}</p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -122,7 +123,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                                 </div>
                             </div>
                         ) : (
-                            <Link key={link.name} href={link.href!} className="transition hover:text-black">
+                            <Link key={link.name} href={link.href!} className="transition hover:text-black dark:hover:text-white">
                                 {link.name}
                             </Link>
                         ),
@@ -131,9 +132,10 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
 
                 {/* Desktop Auth Buttons */}
                 <div className="hidden items-center gap-3 md:flex">
+                    <ThemeToggle />
                     {isLoggedIn ? (
                         <div className="flex items-center gap-3">
-                            <Link href="/dashboard" className="flex items-center gap-2.5 rounded-full border border-gray-200 py-1.5 pr-4 pl-1.5 transition hover:border-blue-200 hover:bg-blue-50/50">
+                            <Link href="/dashboard" className="flex items-center gap-2.5 rounded-full border border-gray-200 py-1.5 pr-4 pl-1.5 transition hover:border-blue-200 hover:bg-blue-50/50 dark:border-gray-700 dark:hover:border-blue-800 dark:hover:bg-blue-950/50">
                                 {userImage ? (
                                     <img src={userImage} alt={userName || ''} className="size-8 rounded-full object-cover" />
                                 ) : (
@@ -141,12 +143,12 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                                         {initials}
                                     </div>
                                 )}
-                                <span className="text-sm font-medium text-gray-700">{userName}</span>
+                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{userName}</span>
                             </Link>
                             <button
                                 onClick={handleLogout}
                                 disabled={isPending}
-                                className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
+                                className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 disabled:opacity-50 dark:border-gray-700 dark:text-gray-400 dark:hover:border-red-800 dark:hover:bg-red-950/50 dark:hover:text-red-400"
                             >
                                 {isPending ? (
                                     <Loader2 className="size-4 animate-spin" />
@@ -160,7 +162,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                         <>
                             <Link
                                 href="/signin"
-                                className="rounded-full px-6 py-2.5 font-medium text-gray-700 transition hover:text-black"
+                                className="rounded-full px-6 py-2.5 font-medium text-gray-700 transition hover:text-black dark:text-gray-300 dark:hover:text-white"
                             >
                                 Sign In
                             </Link>
@@ -175,14 +177,17 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                 </div>
 
                 {/* Mobile Hamburger */}
-                <button onClick={() => setIsOpen(true)} className="transition active:scale-90 md:hidden">
-                    <MenuIcon className="size-6.5" />
-                </button>
+                <div className="flex items-center gap-2 md:hidden">
+                    <ThemeToggle />
+                    <button onClick={() => setIsOpen(true)} className="transition active:scale-90">
+                        <MenuIcon className="size-6.5" />
+                    </button>
+                </div>
             </nav>
 
             {/* Mobile Menu */}
             <div
-                className={`fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-white/20 text-lg font-medium backdrop-blur-2xl transition duration-300 md:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-white/20 text-lg font-medium backdrop-blur-2xl transition duration-300 md:hidden dark:bg-gray-950/20 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 {links.map((link) => (
                     <div key={link.name} className="text-center">
@@ -190,7 +195,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                             <>
                                 <button
                                     onClick={() => setOpenDropdown(openDropdown === link.name ? null : link.name)}
-                                    className="flex items-center justify-center gap-1 text-gray-800"
+                                    className="flex items-center justify-center gap-1 text-gray-800 dark:text-gray-200"
                                 >
                                     {link.name}
                                     <ChevronDown
@@ -203,7 +208,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                                             <Link
                                                 key={sub.name}
                                                 href={sub.href}
-                                                className="block text-gray-600 transition hover:text-black"
+                                                className="block text-gray-600 transition hover:text-black dark:text-gray-400 dark:hover:text-white"
                                                 onClick={() => setIsOpen(false)}
                                             >
                                                 {sub.name}
@@ -215,7 +220,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                         ) : (
                             <Link
                                 href={link.href!}
-                                className="block text-gray-800 transition hover:text-black"
+                                className="block text-gray-800 transition hover:text-black dark:text-gray-200 dark:hover:text-white"
                                 onClick={() => setIsOpen(false)}
                             >
                                 {link.name}
@@ -227,7 +232,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                 <div className="flex flex-col items-center gap-3">
                     {isLoggedIn ? (
                         <>
-                            <Link href="/dashboard" className="text-gray-700" onClick={() => setIsOpen(false)}>
+                            <Link href="/dashboard" className="text-gray-700 dark:text-gray-300" onClick={() => setIsOpen(false)}>
                                 Dashboard
                             </Link>
                             <button
@@ -236,7 +241,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                                     handleLogout();
                                 }}
                                 disabled={isPending}
-                                className="flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-8 py-2.5 font-medium text-red-600 transition hover:bg-red-100"
+                                className="flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-8 py-2.5 font-medium text-red-600 transition hover:bg-red-100 dark:border-red-800 dark:bg-red-950/50 dark:text-red-400"
                             >
                                 {isPending ? <Loader2 className="size-4 animate-spin" /> : <LogOut className="size-4" />}
                                 {isPending ? 'Logging out...' : 'Logout'}
@@ -244,7 +249,7 @@ export default function Navbar({ isLoggedIn = false, userName, userImage }: Navb
                         </>
                     ) : (
                         <>
-                            <Link href="/signin" className="text-gray-700" onClick={() => setIsOpen(false)}>
+                            <Link href="/signin" className="text-gray-700 dark:text-gray-300" onClick={() => setIsOpen(false)}>
                                 Sign In
                             </Link>
                             <Link

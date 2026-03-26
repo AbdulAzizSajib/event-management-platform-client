@@ -33,7 +33,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="px-4 md:px-16 lg:px-24 text-[13px] mt-32 text-gray-500">
+        <footer className="px-4 md:px-16 lg:px-24 text-[13px] mt-32 text-gray-500 dark:text-gray-400">
             <div className="flex flex-wrap items-start md:justify-between gap-10 md:gap-15">
                 <Link href="/" className="flex items-center gap-2">
                     <div className='flex size-9 items-center justify-center rounded-lg btn'>
@@ -43,7 +43,7 @@ export default function Footer() {
                 </Link>
                 {data.map((item, index) => (
                     <div key={index} className="max-w-80">
-                        <p className="font-semibold text-gray-800">{item.title}</p>
+                        <p className="font-semibold text-gray-800 dark:text-gray-200">{item.title}</p>
                         <ul className="mt-5 space-y-2">
                             {item.links.map((link, i) => (
                                 <li key={i}>
@@ -56,19 +56,19 @@ export default function Footer() {
                     </div>
                 ))}
                 <div className="max-w-80 md:ml-40">
-                    <p className='font-semibold text-gray-800'>Stay Updated</p>
+                    <p className='font-semibold text-gray-800 dark:text-gray-200'>Stay Updated</p>
                     <p className='mt-5 text-sm'>
                         Get notified about the latest events and exclusive offers in your area.
                     </p>
                     <div className='flex items-center mt-4'>
-                        <input type="email" placeholder="your@email.com" className='bg-white w-full border border-gray-300 h-9 px-3 outline-none rounded-l-md' />
+                        <input type="email" placeholder="your@email.com" className='bg-white w-full border border-gray-300 h-9 px-3 outline-none rounded-l-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200' />
                         <button className='flex shrink-0 items-center justify-center btn text-white h-9 px-6 rounded-r-md'>
                             Subscribe
                         </button>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row py-7 mt-12 border-gray-200 md:justify-between max-md:items-center border-t max-md:text-center gap-2 items-end">
+            <div className="flex flex-col md:flex-row py-7 mt-12 border-gray-200 md:justify-between max-md:items-center border-t max-md:text-center gap-2 items-end dark:border-gray-800">
                 <p className="text-center">&copy; 2026 Planora. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                     <a href="#" aria-label="Instagram">

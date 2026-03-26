@@ -77,17 +77,17 @@ export default function MyPaymentsTab() {
         <div className="space-y-6">
             {/* Summary */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
                     <p className="text-sm text-gray-500">Total Payments</p>
-                    <p className="mt-1 text-2xl font-bold text-gray-900">{payments.length}</p>
+                    <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{payments.length}</p>
                 </div>
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
                     <p className="text-sm text-gray-500">Successful</p>
                     <p className="mt-1 text-2xl font-bold text-green-600">
                         {payments.filter((p) => p.status === 'SUCCESS').length}
                     </p>
                 </div>
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
                     <p className="text-sm text-gray-500">Total Spent</p>
                     <p className="mt-1 text-2xl font-bold text-blue-600">৳{totalSpent.toLocaleString()}</p>
                 </div>
@@ -102,16 +102,16 @@ export default function MyPaymentsTab() {
                     return (
                         <div
                             key={payment.id}
-                            className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
+                            className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900 sm:flex-row sm:items-center sm:justify-between"
                         >
                             <div className="flex items-start gap-4">
-                                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-50">
+                                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950">
                                     <CreditCard className="size-6 text-blue-600" />
                                 </div>
                                 <div>
                                     <Link
                                         href={`/events/${payment.eventId}`}
-                                        className="font-semibold text-gray-900 transition hover:text-blue-600"
+                                        className="font-semibold text-gray-900 transition hover:text-blue-600 dark:text-white"
                                     >
                                         {payment.event.title}
                                     </Link>
@@ -147,7 +147,7 @@ export default function MyPaymentsTab() {
                             </div>
 
                             <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-2">
-                                <p className="text-lg font-bold text-gray-900">৳{Number(payment.amount).toLocaleString()}</p>
+                                <p className="text-lg font-bold text-gray-900 dark:text-white">৳{Number(payment.amount).toLocaleString()}</p>
                                 <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium ${config.className}`}>
                                     <StatusIcon className="size-3.5" />
                                     {config.label}

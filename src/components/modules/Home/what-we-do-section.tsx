@@ -9,8 +9,8 @@ export default function WhatWeDoSection() {
                     src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=451&h=451&auto=format&fit=crop"
                     alt="event" />
             </div>
-            <div className="text-sm text-slate-600 max-w-md">
-                <h2 className="text-xl uppercase font-semibold text-slate-700">Why Planora?</h2>
+            <div className="text-sm text-slate-600 max-w-md dark:text-gray-400">
+                <h2 className="text-xl uppercase font-semibold text-slate-700 dark:text-gray-200">Why Planora?</h2>
                 <div className="w-24 h-[3px] rounded-full bg-linear-to-r from-blue-500 to-indigo-300"></div>
                 <p className="mt-8">Planora empowers you to create, discover, and manage events effortlessly. Whether you&apos;re hosting a small workshop or a large conference, our tools make it simple.</p>
                 <p className="mt-4">With powerful registration management, real-time analytics, and seamless payment processing, focus on what matters most - creating amazing experiences.</p>

@@ -85,9 +85,9 @@ export default function EditEventModal({ eventId, onClose, onSuccess }: Props) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-            <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-xl">
-                <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white px-6 py-4">
-                    <h2 className="text-lg font-semibold text-gray-900">Edit Event</h2>
+            <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-xl dark:bg-gray-950">
+                <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-950">
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Edit Event</h2>
                     <button
                         onClick={onClose}
                         className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
@@ -212,14 +212,14 @@ function EditForm({
                     <form.Field name="description" validators={{ onChange: updateEventSchema.shape.description }}>
                         {(field) => (
                             <div>
-                                <label className="mb-1.5 block text-sm font-medium text-gray-700">Description</label>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                                 <textarea
                                     rows={4}
                                     placeholder="Describe your event..."
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     onBlur={field.handleBlur}
-                                    className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                    className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                 />
                                 {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                     <p className="mt-1 text-xs text-red-500">
@@ -268,7 +268,7 @@ function EditForm({
 
                 {/* Image Upload */}
                 <div className="sm:col-span-2">
-                    <label className="mb-1.5 block text-sm font-medium text-gray-700">Event Image (optional)</label>
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Event Image (optional)</label>
                     <input
                         ref={fileInputRef}
                         type="file"
@@ -301,7 +301,7 @@ function EditForm({
                         <button
                             type="button"
                             onClick={() => fileInputRef.current?.click()}
-                            className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-blue-400 hover:text-blue-500"
+                            className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-blue-400 hover:text-blue-500 dark:border-gray-700"
                         >
                             <ImagePlus className="size-8" />
                             <span className="text-sm">Click to upload image</span>
@@ -313,12 +313,12 @@ function EditForm({
                 <form.Field name="type" validators={{ onChange: updateEventSchema.shape.type }}>
                     {(field) => (
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Event Type</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Event Type</label>
                             <select
                                 value={field.state.value}
                                 onChange={(e) => field.handleChange(e.target.value as 'PUBLIC' | 'PRIVATE')}
                                 onBlur={field.handleBlur}
-                                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                             >
                                 <option value="PUBLIC">Public</option>
                                 <option value="PRIVATE">Private</option>
@@ -338,12 +338,12 @@ function EditForm({
                 <form.Field name="categoryId" validators={{ onChange: updateEventSchema.shape.categoryId }}>
                     {(field) => (
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Category</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
                             <select
                                 value={field.state.value}
                                 onChange={(e) => field.handleChange(e.target.value)}
                                 onBlur={field.handleBlur}
-                                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                             >
                                 <option value="">Select category</option>
                                 {categories.map((cat) => (
@@ -367,7 +367,7 @@ function EditForm({
                 <form.Field name="fee" validators={{ onChange: updateEventSchema.shape.fee }}>
                     {(field) => (
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Ticket Fee (৳)</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Ticket Fee (৳)</label>
                             <input
                                 type="number"
                                 min="0"
@@ -375,7 +375,7 @@ function EditForm({
                                 value={field.state.value || ''}
                                 onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                 onBlur={field.handleBlur}
-                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                             />
                             {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -392,7 +392,7 @@ function EditForm({
                 <form.Field name="maxAttendees" validators={{ onChange: updateEventSchema.shape.maxAttendees }}>
                     {(field) => (
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Max Attendees</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Max Attendees</label>
                             <input
                                 type="number"
                                 min="1"
@@ -400,7 +400,7 @@ function EditForm({
                                 value={field.state.value || ''}
                                 onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                 onBlur={field.handleBlur}
-                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                             />
                             {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -415,7 +415,7 @@ function EditForm({
             </div>
 
             {serverError && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
                     {serverError}
                 </div>
             )}
@@ -424,7 +424,7 @@ function EditForm({
                 <button
                     type="button"
                     onClick={onClose}
-                    className="rounded-xl border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+                    className="rounded-xl border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                 >
                     Cancel
                 </button>

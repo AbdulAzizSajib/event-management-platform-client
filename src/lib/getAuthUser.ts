@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export interface AuthUser {
+    id: string;
     name: string;
     email: string;
     role: string;
@@ -33,6 +34,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
         const data = json.data as Record<string, unknown>;
 
         return {
+            id: data.id as string,
             name: data.name as string,
             email: data.email as string,
             role: data.role as string,

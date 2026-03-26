@@ -101,17 +101,17 @@ export default function MyReviewsTab() {
     return (
         <div className="space-y-4">
             <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900">My Reviews ({reviews.length})</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">My Reviews ({reviews.length})</h2>
             </div>
 
             {reviews.map((review) => (
-                <div key={review.id} className="rounded-xl border border-gray-200 bg-white p-5">
+                <div key={review.id} className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
                     {/* Event Info */}
                     <div className="mb-4 flex items-start justify-between">
                         <div>
                             <Link
                                 href={`/events/${review.event.id}`}
-                                className="text-base font-semibold text-gray-900 hover:text-blue-600"
+                                className="text-base font-semibold text-gray-900 hover:text-blue-600 dark:text-white"
                             >
                                 {review.event.title}
                             </Link>
@@ -184,7 +184,7 @@ export default function MyReviewsTab() {
                                 value={editComment}
                                 onChange={(e) => setEditComment(e.target.value)}
                                 rows={3}
-                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                             />
 
                             {error && (
@@ -207,7 +207,7 @@ export default function MyReviewsTab() {
                                 </button>
                                 <button
                                     onClick={cancelEdit}
-                                    className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50"
+                                    className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                                 >
                                     <X className="size-3.5" />
                                     Cancel
@@ -235,7 +235,7 @@ export default function MyReviewsTab() {
                                     {review.updatedAt !== review.createdAt && ' (edited)'}
                                 </span>
                             </div>
-                            <p className="text-sm leading-relaxed text-gray-600">{review.comment}</p>
+                            <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">{review.comment}</p>
                         </div>
                     )}
                 </div>

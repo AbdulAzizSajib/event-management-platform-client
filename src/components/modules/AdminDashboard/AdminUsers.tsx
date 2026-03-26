@@ -66,17 +66,17 @@ export default function AdminUsers() {
             {/* Header + Filters */}
             <div className="mb-6 space-y-4">
                 <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-                    <h2 className="text-lg font-semibold text-gray-900">
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                         All Users {meta ? `(${meta.total})` : ''}
                     </h2>
-                    <div className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 sm:w-auto">
+                    <div className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 sm:w-auto dark:border-gray-700 dark:bg-gray-900">
                         <Search className="size-4 text-gray-400" />
                         <input
                             type="text"
                             placeholder="Search users..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full text-sm outline-none sm:w-48"
+                            className="w-full text-sm outline-none sm:w-48 dark:text-gray-200 dark:placeholder-gray-500"
                         />
                         {searchTerm && (
                             <button onClick={() => setSearchTerm('')}>
@@ -89,13 +89,13 @@ export default function AdminUsers() {
                 {/* Filter Pills */}
                 <div className="flex flex-wrap gap-3">
                     <div className="flex gap-1.5">
-                        <span className="self-center text-xs font-medium text-gray-500">Role:</span>
+                        <span className="self-center text-xs font-medium text-gray-500 dark:text-gray-400">Role:</span>
                         {['', 'USER', 'ADMIN'].map((r) => (
                             <button
                                 key={r}
                                 onClick={() => { setRoleFilter(r); setPage(1); }}
                                 className={`rounded-full px-3 py-1 text-xs transition ${
-                                    roleFilter === r ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300'
+                                    roleFilter === r ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300 dark:border-gray-700 dark:text-gray-400'
                                 }`}
                             >
                                 {r || 'All'}
@@ -103,13 +103,13 @@ export default function AdminUsers() {
                         ))}
                     </div>
                     <div className="flex gap-1.5">
-                        <span className="self-center text-xs font-medium text-gray-500">Status:</span>
+                        <span className="self-center text-xs font-medium text-gray-500 dark:text-gray-400">Status:</span>
                         {['', 'ACTIVE', 'BLOCKED'].map((s) => (
                             <button
                                 key={s}
                                 onClick={() => { setStatusFilter(s); setPage(1); }}
                                 className={`rounded-full px-3 py-1 text-xs transition ${
-                                    statusFilter === s ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300'
+                                    statusFilter === s ? 'btn text-white' : 'border border-gray-200 text-gray-600 hover:border-blue-300 dark:border-gray-700 dark:text-gray-400'
                                 }`}
                             >
                                 {s || 'All'}
@@ -126,39 +126,39 @@ export default function AdminUsers() {
                 </div>
             ) : users.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                    <Users className="mb-3 size-12 text-gray-300" />
-                    <p className="text-gray-500">No users found</p>
+                    <Users className="mb-3 size-12 text-gray-300 dark:text-gray-600" />
+                    <p className="text-gray-500 dark:text-gray-400">No users found</p>
                 </div>
             ) : (
-                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-gray-200 bg-gray-50">
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">User</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Role</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Events</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Participations</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Reviews</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Joined</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Actions</th>
+                                <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50">
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">User</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Role</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Status</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Events</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Participations</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Reviews</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Joined</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {users.map((user) => (
-                                    <tr key={user.id} className="transition hover:bg-gray-50">
+                                    <tr key={user.id} className="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-3">
                                                 {user.image ? (
                                                     <img src={user.image} alt={user.name} className="size-9 rounded-full object-cover" />
                                                 ) : (
-                                                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-100">
+                                                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
                                                         <User className="size-4 text-gray-500" />
                                                     </div>
                                                 )}
                                                 <div>
-                                                    <p className="font-medium text-gray-900">{user.name}</p>
+                                                    <p className="font-medium text-gray-900 dark:text-white">{user.name}</p>
                                                     <p className="text-xs text-gray-400">{user.email}</p>
                                                 </div>
                                             </div>
@@ -167,8 +167,8 @@ export default function AdminUsers() {
                                             <span
                                                 className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                     user.role === 'ADMIN' || user.role === 'SUPER_ADMIN'
-                                                        ? 'bg-red-100 text-red-700'
-                                                        : 'bg-gray-100 text-gray-600'
+                                                        ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400'
+                                                        : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                                                 }`}
                                             >
                                                 {user.role}
@@ -178,32 +178,32 @@ export default function AdminUsers() {
                                             <span
                                                 className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                     user.status === 'ACTIVE'
-                                                        ? 'bg-green-100 text-green-700'
-                                                        : 'bg-red-100 text-red-700'
+                                                        ? 'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400'
+                                                        : 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400'
                                                 }`}
                                             >
                                                 {user.status}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className="flex items-center gap-1 text-gray-600">
+                                            <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                                                 <CalendarDays className="size-3.5" />
                                                 {user._count.organizedEvents}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className="flex items-center gap-1 text-gray-600">
+                                            <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                                                 <Users className="size-3.5" />
                                                 {user._count.participants}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className="flex items-center gap-1 text-gray-600">
+                                            <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                                                 <Star className="size-3.5" />
                                                 {user._count.reviews}
                                             </span>
                                         </td>
-                                        <td className="px-4 py-3 text-gray-500">
+                                        <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                                             {new Date(user.createdAt).toLocaleDateString('en-US', {
                                                 month: 'short',
                                                 day: 'numeric',
@@ -217,7 +217,7 @@ export default function AdminUsers() {
                                                         onClick={() => handleStatusChange(user.id, 'BLOCKED', 'block')}
                                                         disabled={actionLoadingId === user.id}
                                                         title="Block user"
-                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
+                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50 dark:hover:bg-red-950"
                                                     >
                                                         {actionLoadingId === user.id ? <Loader2 className="size-4 animate-spin" /> : <ShieldBan className="size-4" />}
                                                     </button>
@@ -226,7 +226,7 @@ export default function AdminUsers() {
                                                         onClick={() => handleStatusChange(user.id, 'ACTIVE', 'activate')}
                                                         disabled={actionLoadingId === user.id}
                                                         title="Activate user"
-                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-green-50 hover:text-green-500 disabled:opacity-50"
+                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-green-50 hover:text-green-500 disabled:opacity-50 dark:hover:bg-green-950"
                                                     >
                                                         {actionLoadingId === user.id ? <Loader2 className="size-4 animate-spin" /> : <ShieldCheck className="size-4" />}
                                                     </button>
@@ -235,7 +235,7 @@ export default function AdminUsers() {
                                                     onClick={() => handleStatusChange(user.id, 'DELETED', 'delete')}
                                                     disabled={actionLoadingId === user.id}
                                                     title="Delete user"
-                                                    className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
+                                                    className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50 dark:hover:bg-red-950"
                                                 >
                                                     <Trash2 className="size-4" />
                                                 </button>
@@ -255,7 +255,7 @@ export default function AdminUsers() {
                     <button
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
-                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                     >
                         <ChevronLeft className="size-4" />
                         Previous
@@ -268,7 +268,7 @@ export default function AdminUsers() {
                                 className={`flex size-10 items-center justify-center rounded-lg text-sm transition ${
                                     page === p
                                         ? 'btn text-white'
-                                        : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                        : 'border border-gray-200 text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800'
                                 }`}
                             >
                                 {p}
@@ -278,7 +278,7 @@ export default function AdminUsers() {
                     <button
                         onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
                         disabled={page === meta.totalPages}
-                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                     >
                         Next
                         <ChevronRight className="size-4" />

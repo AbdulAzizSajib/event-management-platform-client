@@ -13,12 +13,12 @@ export default function FaqSection() {
             <SectionTitle title="FAQ's" subtitle="Got questions about Planora? Find answers to the most commonly asked questions below." />
             <div className='mx-auto mt-12 w-full max-w-xl'>
                 {faqData.map((item, index) => (
-                    <div key={index} className='flex flex-col border-b border-gray-200 bg-white'>
-                        <h3 className='flex cursor-pointer items-start justify-between gap-4 py-4 font-medium' onClick={() => setIsOpen(isOpen === index ? false : index)}>
+                    <div key={index} className='flex flex-col border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-transparent'>
+                        <h3 className='flex cursor-pointer items-start justify-between gap-4 py-4 font-medium dark:text-gray-200' onClick={() => setIsOpen(isOpen === index ? false : index)}>
                             {item.question}
                             {isOpen === index ? <MinusIcon className='size-5 text-gray-500' /> : <PlusIcon className='size-5 text-gray-500' />}
                         </h3>
-                        <p className={`pb-4 text-sm/6 text-gray-500 ${isOpen === index ? 'block' : 'hidden'}`}>{item.answer}</p>
+                        <p className={`pb-4 text-sm/6 text-gray-500 dark:text-gray-400 ${isOpen === index ? 'block' : 'hidden'}`}>{item.answer}</p>
                     </div>
                 ))}
             </div>

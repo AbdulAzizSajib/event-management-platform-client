@@ -22,7 +22,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
         return (
             <Link
                 href={`/events/${event.id}`}
-                className="group flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:flex-row"
+                className="group flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:flex-row dark:border-gray-800 dark:bg-gray-900"
             >
                 <div className="relative h-48 shrink-0 overflow-hidden rounded-lg sm:h-auto sm:w-56">
                     {event.image ? (
@@ -32,7 +32,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-100">
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-100 dark:from-blue-950 dark:to-blue-900">
                             <CalendarDays className="size-10 text-blue-400" />
                         </div>
                     )}
@@ -44,17 +44,17 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                 </div>
                 <div className="flex flex-1 flex-col justify-between py-1">
                     <div>
-                        <span className="inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
+                        <span className="inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">
                             {event.category.name}
                         </span>
-                        <h3 className="mt-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
+                        <h3 className="mt-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white">
                             {event.title}
                         </h3>
-                        <p className="mt-1 line-clamp-2 text-sm text-gray-500">
+                        <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                             {event.description}
                         </p>
                     </div>
-                    <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                    <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                         <span className="flex items-center gap-1">
                             <CalendarDays className="size-4" />
                             {new Date(event.date).toLocaleDateString('en-US', {
@@ -71,7 +71,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                             <Users className="size-4" />
                             {event._count.participants} joined
                         </span>
-                        <span className="ml-auto font-semibold text-blue-600">
+                        <span className="ml-auto font-semibold text-blue-600 dark:text-blue-400">
                             {fee}
                         </span>
                     </div>
@@ -83,7 +83,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
     return (
         <Link
             href={`/events/${event.id}`}
-            className="group flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="group flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
         >
             <div className="relative h-48 overflow-hidden">
                 {event.image ? (
@@ -93,7 +93,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                 ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-100">
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-100 dark:from-blue-950 dark:to-blue-900">
                         <CalendarDays className="size-12 text-blue-400" />
                     </div>
                 )}
@@ -108,7 +108,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                             Featured
                         </span>
                     )}
-                    <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+                    <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-800/90 dark:text-gray-300">
                         {event.type}
                     </span>
                 </div>
@@ -122,18 +122,18 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
             </div>
             <div className="flex flex-1 flex-col p-4">
                 <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
+                    <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">
                         {event.category.name}
                     </span>
-                    <span className="text-lg font-bold text-blue-600">{fee}</span>
+                    <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{fee}</span>
                 </div>
-                <h3 className="mt-2 line-clamp-1 text-base font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
+                <h3 className="mt-2 line-clamp-1 text-base font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white">
                     {event.title}
                 </h3>
-                <p className="mt-1 line-clamp-2 text-sm text-gray-500">
+                <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                     {event.description}
                 </p>
-                <div className="mt-auto flex flex-col gap-2 pt-4 text-sm text-gray-500">
+                <div className="mt-auto flex flex-col gap-2 pt-4 text-sm text-gray-500 dark:text-gray-400">
                     <div className="flex items-center gap-1">
                         <CalendarDays className="size-4 text-blue-400" />
                         {new Date(event.date).toLocaleDateString('en-US', {
@@ -147,7 +147,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                         <MapPin className="size-4 text-blue-400" />
                         <span className="line-clamp-1">{event.venue}</span>
                     </div>
-                    <div className="flex items-center justify-between border-t border-gray-100 pt-2">
+                    <div className="flex items-center justify-between border-t border-gray-100 pt-2 dark:border-gray-800">
                         <div className="flex items-center gap-3">
                             <span className="flex items-center gap-1">
                                 <Users className="size-4" />
@@ -157,7 +157,7 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
                                 by {event.organizer.name}
                             </span>
                         </div>
-                        <span className="flex items-center gap-1 font-medium text-blue-600 transition-all group-hover:gap-2">
+                        <span className="flex items-center gap-1 font-medium text-blue-600 transition-all group-hover:gap-2 dark:text-blue-400">
                             Details <ArrowRight className="size-4" />
                         </span>
                     </div>

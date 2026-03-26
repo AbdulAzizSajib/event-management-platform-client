@@ -72,7 +72,7 @@ export default function SavedTab() {
 
     return (
         <div>
-            <h2 className="mb-6 text-lg font-semibold text-gray-900">
+            <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-white">
                 Saved Events ({savedEvents.length})
             </h2>
 
@@ -96,7 +96,7 @@ export default function SavedTab() {
                         return (
                             <div
                                 key={saved.id}
-                                className="group overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:shadow-md"
+                                className="group overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
                             >
                                 <Link href={`/events/${saved.event.id}`}>
                                     <div className="relative h-36 overflow-hidden">
@@ -124,7 +124,7 @@ export default function SavedTab() {
 
                                 <div className="p-4">
                                     <Link href={`/events/${saved.event.id}`}>
-                                        <p className="line-clamp-1 font-semibold text-gray-900 transition group-hover:text-blue-600">
+                                        <p className="line-clamp-1 font-semibold text-gray-900 transition group-hover:text-blue-600 dark:text-white">
                                             {saved.event.title}
                                         </p>
                                         <p className="mt-1 line-clamp-2 text-xs text-gray-500">
@@ -154,7 +154,7 @@ export default function SavedTab() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
+                                    <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3 dark:border-gray-800">
                                         <span className="text-sm font-bold text-blue-600">
                                             {isFree ? 'Free' : `৳${fee}`}
                                         </span>

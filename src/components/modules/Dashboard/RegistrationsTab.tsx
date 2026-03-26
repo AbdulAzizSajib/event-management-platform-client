@@ -33,7 +33,7 @@ export default function RegistrationsTab() {
 
     return (
         <div>
-            <h2 className="mb-6 text-lg font-semibold text-gray-900">
+            <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-white">
                 My Registrations ({participations.length})
             </h2>
 
@@ -58,7 +58,7 @@ export default function RegistrationsTab() {
                             <Link
                                 key={p.id}
                                 href={`/events/${p.event.id}`}
-                                className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm sm:flex-row sm:items-center"
+                                className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:flex-row sm:items-center"
                             >
                                 {/* Event image */}
                                 {p.event.image ? (
@@ -71,7 +71,7 @@ export default function RegistrationsTab() {
 
                                 {/* Event info */}
                                 <div className="min-w-0 flex-1">
-                                    <p className="truncate font-medium text-gray-900">{p.event.title}</p>
+                                    <p className="truncate font-medium text-gray-900 dark:text-white">{p.event.title}</p>
                                     <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-gray-500">
                                         <span className="flex items-center gap-1">
                                             <CalendarDays className="size-3" />

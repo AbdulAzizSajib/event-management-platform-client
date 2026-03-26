@@ -68,7 +68,7 @@ export default function MyEventsTab() {
         <>
         <div>
             <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900">My Events ({events.length})</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">My Events ({events.length})</h2>
                 <button className="btn flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-white transition hover:opacity-90">
                     <PlusCircle className="size-4" /> New Event
                 </button>
@@ -90,7 +90,7 @@ export default function MyEventsTab() {
                         return (
                             <div
                                 key={event.id}
-                                className="flex flex-col items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row sm:items-center"
+                                className="flex flex-col items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900 sm:flex-row sm:items-center"
                             >
                                 {event.image ? (
                                     <img src={event.image} alt={event.title} className="size-20 w-32 shrink-0 rounded-lg object-cover" />
@@ -110,7 +110,7 @@ export default function MyEventsTab() {
                                             </span>
                                         )}
                                     </div>
-                                    <p className="font-semibold text-gray-900">{event.title}</p>
+                                    <p className="font-semibold text-gray-900 dark:text-white">{event.title}</p>
                                     <div className="mt-1 flex flex-wrap items-center gap-4 text-xs text-gray-500">
                                         <span className="flex items-center gap-1">
                                             <CalendarDays className="size-3" />
@@ -141,20 +141,20 @@ export default function MyEventsTab() {
                                 <div className="flex items-center gap-2">
                                     <Link
                                         href={`/events/${event.id}`}
-                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800"
                                     >
                                         <Eye className="size-4" />
                                     </Link>
                                     <button
                                         onClick={() => setEditingEventId(event.id)}
-                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
+                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-800"
                                     >
                                         <Edit className="size-4" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(event.id, event.title)}
                                         disabled={deletingId === event.id}
-                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-red-500 disabled:opacity-50"
+                                        className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-red-500 dark:hover:bg-gray-800 disabled:opacity-50"
                                     >
                                         {deletingId === event.id ? (
                                             <Loader2 className="size-4 animate-spin" />

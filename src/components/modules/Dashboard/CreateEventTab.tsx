@@ -96,10 +96,10 @@ export default function CreateEventTab() {
 
     return (
         <div className="max-w-2xl">
-            <h2 className="mb-6 text-lg font-semibold text-gray-900">Create New Event</h2>
+            <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Create New Event</h2>
 
             {success && (
-                <div className="mb-6 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                <div className="mb-6 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-400">
                     <CheckCircle className="size-4" />
                     {success}
                 </div>
@@ -129,14 +129,14 @@ export default function CreateEventTab() {
                         <form.Field name="description" validators={{ onChange: createEventSchema.shape.description }}>
                             {(field) => (
                                 <div>
-                                    <label className="mb-1.5 block text-sm font-medium text-gray-700">Description</label>
+                                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                                     <textarea
                                         rows={4}
                                         placeholder="Describe your event..."
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                        className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                     />
                                     {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                         <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>
@@ -181,7 +181,7 @@ export default function CreateEventTab() {
 
                     {/* Image Upload */}
                     <div className="sm:col-span-2">
-                        <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                        <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Event Image (optional)
                         </label>
                         <input
@@ -220,7 +220,7 @@ export default function CreateEventTab() {
                             <button
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-blue-400 hover:text-blue-500"
+                                className="flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 transition hover:border-blue-400 hover:text-blue-500 dark:border-gray-700"
                             >
                                 <ImagePlus className="size-8" />
                                 <span className="text-sm">Click to upload image</span>
@@ -232,12 +232,12 @@ export default function CreateEventTab() {
                     <form.Field name="type" validators={{ onChange: createEventSchema.shape.type }}>
                         {(field) => (
                             <div>
-                                <label className="mb-1.5 block text-sm font-medium text-gray-700">Event Type</label>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Event Type</label>
                                 <select
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value as 'PUBLIC' | 'PRIVATE')}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                 >
                                     <option value="PUBLIC">Public</option>
                                     <option value="PRIVATE">Private</option>
@@ -253,12 +253,12 @@ export default function CreateEventTab() {
                     <form.Field name="categoryId" validators={{ onChange: createEventSchema.shape.categoryId }}>
                         {(field) => (
                             <div>
-                                <label className="mb-1.5 block text-sm font-medium text-gray-700">Category</label>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
                                 <select
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                 >
                                     <option value="">Select category</option>
                                     {categories.map((cat) => (
@@ -278,7 +278,7 @@ export default function CreateEventTab() {
                     <form.Field name="fee" validators={{ onChange: createEventSchema.shape.fee }}>
                         {(field) => (
                             <div>
-                                <label className="mb-1.5 block text-sm font-medium text-gray-700">Ticket Fee (৳)</label>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Ticket Fee (৳)</label>
                                 <input
                                     type="number"
                                     min="0"
@@ -286,7 +286,7 @@ export default function CreateEventTab() {
                                     value={field.state.value || ''}
                                     onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                 />
                                 {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                     <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>
@@ -299,7 +299,7 @@ export default function CreateEventTab() {
                     <form.Field name="maxAttendees" validators={{ onChange: createEventSchema.shape.maxAttendees }}>
                         {(field) => (
                             <div>
-                                <label className="mb-1.5 block text-sm font-medium text-gray-700">Max Attendees</label>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Max Attendees</label>
                                 <input
                                     type="number"
                                     min="1"
@@ -307,7 +307,7 @@ export default function CreateEventTab() {
                                     value={field.state.value || ''}
                                     onChange={(e) => field.handleChange(e.target.value === '' ? 0 : Number(e.target.value))}
                                     onBlur={field.handleBlur}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                 />
                                 {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                                     <p className="mt-1 text-xs text-red-500">{typeof field.state.meta.errors[0] === 'object' ? (field.state.meta.errors[0] as { message?: string })?.message : field.state.meta.errors[0]}</p>
@@ -318,7 +318,7 @@ export default function CreateEventTab() {
                 </div>
 
                 {serverError && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
                         {serverError}
                     </div>
                 )}

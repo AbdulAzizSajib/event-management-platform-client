@@ -23,16 +23,16 @@ export default function AdminPage() {
         <div className="px-4 py-8 md:px-16 lg:px-24">
             <div className="mx-auto max-w-6xl">
                 <div className="mb-8 flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-red-50">
-                        <Shield className="size-5 text-red-600" />
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-red-50 dark:bg-red-950">
+                        <Shield className="size-5 text-red-600 dark:text-red-400" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                        <p className="text-sm text-gray-500">Manage your platform</p>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Manage your platform</p>
                     </div>
                 </div>
 
-                <div className="mb-8 flex gap-1 overflow-x-auto border-b border-gray-200">
+                <div className="mb-8 flex gap-1 overflow-x-auto border-b border-gray-200 dark:border-gray-800">
                     {adminTabs.map((tab) => (
                         <button
                             key={tab.id}
@@ -40,7 +40,7 @@ export default function AdminPage() {
                             className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition ${
                                 activeTab === tab.id
                                     ? 'border-blue-600 text-blue-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                                    : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
                             }`}
                         >
                             <tab.icon className="size-4" />

@@ -27,14 +27,14 @@ export default function AppField({
 
     return (
         <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
                 {label}
             </label>
             <div
                 className={`flex items-center gap-2 rounded-xl border px-4 py-3 transition ${
                     hasError
                         ? 'border-red-400 ring-2 ring-red-100'
-                        : 'border-gray-300 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100'
+                        : 'border-gray-300 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 dark:border-gray-700 dark:bg-gray-800'
                 } ${className ?? ''}`}
             >
                 {icon}
@@ -46,7 +46,7 @@ export default function AppField({
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-full text-sm outline-none"
+                    className="w-full bg-transparent text-sm outline-none dark:text-gray-200 dark:placeholder-gray-500"
                 />
                 {append}
             </div>

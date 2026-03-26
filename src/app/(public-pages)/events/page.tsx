@@ -12,6 +12,9 @@ import type { PaginationMeta } from '@/types/api.types';
 export default function EventsPage() {
     const searchParams = useSearchParams();
     const categoryFromUrl = searchParams.get('categoryId') || '';
+    const searchFromUrl = searchParams.get('searchTerm') || '';
+    const typeFromUrl = (searchParams.get('type') || '') as '' | 'PUBLIC' | 'PRIVATE';
+    const startDateFromUrl = searchParams.get('startDate') || '';
 
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
@@ -19,10 +22,11 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
 
     // Filters
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(searchFromUrl);
     const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl);
-    const [typeFilter, setTypeFilter] = useState<'' | 'PUBLIC' | 'PRIVATE'>('');
+    const [typeFilter, setTypeFilter] = useState<'' | 'PUBLIC' | 'PRIVATE'>(typeFromUrl);
     const [featuredFilter, setFeaturedFilter] = useState<'' | 'true' | 'false'>('');
+    const [startDate, setStartDate] = useState(startDateFromUrl);
     const [sortBy, setSortBy] = useState('createdAt');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
     const [page, setPage] = useState(1);
@@ -40,13 +44,22 @@ export default function EventsPage() {
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    // Sync category from URL
+    // Sync filters from URL
     useEffect(() => {
         if (categoryFromUrl) {
             setSelectedCategory(categoryFromUrl);
             setShowFilters(true);
         }
-    }, [categoryFromUrl]);
+        if (searchFromUrl) setSearchTerm(searchFromUrl);
+        if (typeFromUrl) {
+            setTypeFilter(typeFromUrl);
+            setShowFilters(true);
+        }
+        if (startDateFromUrl) {
+            setStartDate(startDateFromUrl);
+            setShowFilters(true);
+        }
+    }, [categoryFromUrl, searchFromUrl, typeFromUrl, startDateFromUrl]);
 
     // Fetch categories once
     useEffect(() => {
@@ -67,6 +80,7 @@ export default function EventsPage() {
             if (selectedCategory) params.categoryId = selectedCategory;
             if (typeFilter) params.type = typeFilter;
             if (featuredFilter) params.isFeatured = featuredFilter === 'true';
+            if (startDate) params.startDate = startDate;
 
             const response = await getAllEvents(params);
             setEvents(response.data);
@@ -76,7 +90,7 @@ export default function EventsPage() {
         } finally {
             setLoading(false);
         }
-    }, [page, sortBy, sortOrder, debouncedSearch, selectedCategory, typeFilter, featuredFilter]);
+    }, [page, sortBy, sortOrder, debouncedSearch, selectedCategory, typeFilter, featuredFilter, startDate]);
 
     useEffect(() => {
         fetchEvents();
@@ -87,19 +101,20 @@ export default function EventsPage() {
         setSelectedCategory('');
         setTypeFilter('');
         setFeaturedFilter('');
+        setStartDate('');
         setSortBy('createdAt');
         setSortOrder('desc');
         setPage(1);
     };
 
-    const hasActiveFilters = selectedCategory || typeFilter || featuredFilter || debouncedSearch;
+    const hasActiveFilters = selectedCategory || typeFilter || featuredFilter || debouncedSearch || startDate;
 
     return (
         <div className="px-4 py-12 md:px-16 lg:px-24">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-10">
-                    <h1 className="text-3xl font-bold text-gray-900">Explore Events</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Explore Events</h1>
                     <p className="mt-2 text-gray-500">
                         Discover {meta?.total || 0} events happening around you
                     </p>

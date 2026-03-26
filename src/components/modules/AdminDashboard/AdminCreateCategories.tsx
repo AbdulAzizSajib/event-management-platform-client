@@ -135,37 +135,37 @@ export default function AdminCreateCategories() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold text-gray-900">Create & Manage Categories</h2>
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Create & Manage Categories</h2>
 
       {success && (
-        <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+        <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-400">
           <CheckCircle2 className="size-4" />
           {success}
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleCreate} className="rounded-xl border border-gray-200 bg-white p-5">
-        <h3 className="mb-4 text-sm font-semibold text-gray-700">Add Category</h3>
+      <form onSubmit={handleCreate} className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+        <h3 className="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Add Category</h3>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_1fr_auto]">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Category name"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 dark:focus:ring-blue-900"
           />
           <input
             type="url"
             value={icon}
             onChange={(e) => setIcon(e.target.value)}
             placeholder="Icon URL (optional)"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 dark:focus:ring-blue-900"
           />
           <button
             type="submit"
@@ -178,46 +178,46 @@ export default function AdminCreateCategories() {
         </div>
       </form>
 
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="size-7 animate-spin text-blue-500" />
           </div>
         ) : categories.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <Tags className="mb-3 size-12 text-gray-300" />
-            <p className="text-gray-500">No categories found</p>
+            <Tags className="mb-3 size-12 text-gray-300 dark:text-gray-600" />
+            <p className="text-gray-500 dark:text-gray-400">No categories found</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Name</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Icon</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Events</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Created</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Actions</th>
+                <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50">
+                  <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Name</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Icon</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Events</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Created</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                 {categories.map((category) => {
                   const isEditing = editingId === category.id;
                   const isUpdating = updatingId === category.id;
                   const isDeleting = deletingId === category.id;
 
                   return (
-                    <tr key={category.id} className="transition hover:bg-gray-50">
+                    <tr key={category.id} className="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
                       <td className="px-4 py-3">
                         {isEditing ? (
                           <input
                             type="text"
                             value={editName}
                             onChange={(e) => setEditName(e.target.value)}
-                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-400"
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                           />
                         ) : (
-                          <p className="font-medium text-gray-800">{category.name}</p>
+                          <p className="font-medium text-gray-800 dark:text-gray-200">{category.name}</p>
                         )}
                       </td>
                       <td className="px-4 py-3">
@@ -227,14 +227,14 @@ export default function AdminCreateCategories() {
                             value={editIcon}
                             onChange={(e) => setEditIcon(e.target.value)}
                             placeholder="https://..."
-                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-400"
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                           />
                         ) : category.icon ? (
                           <a
                             href={category.icon}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline dark:text-blue-400"
                           >
                             View icon
                           </a>
@@ -242,8 +242,8 @@ export default function AdminCreateCategories() {
                           <span className="text-gray-400">N/A</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-gray-600">{category._count?.events ?? 0}</td>
-                      <td className="px-4 py-3 text-gray-500">
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{category._count?.events ?? 0}</td>
+                      <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                         {new Date(category.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -258,7 +258,7 @@ export default function AdminCreateCategories() {
                                 type="button"
                                 onClick={() => handleUpdate(category.id)}
                                 disabled={isUpdating}
-                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-green-50 hover:text-green-600 disabled:opacity-60"
+                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-green-50 hover:text-green-600 disabled:opacity-60 dark:hover:bg-green-950"
                                 title="Save"
                               >
                                 {isUpdating ? <Loader2 className="size-4 animate-spin" /> : <CheckCircle2 className="size-4" />}
@@ -266,7 +266,7 @@ export default function AdminCreateCategories() {
                               <button
                                 type="button"
                                 onClick={cancelEdit}
-                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800"
+                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800"
                                 title="Cancel"
                               >
                                 <X className="size-4" />
@@ -277,7 +277,7 @@ export default function AdminCreateCategories() {
                               <button
                                 type="button"
                                 onClick={() => startEdit(category)}
-                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-blue-50 hover:text-blue-600"
+                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950"
                                 title="Edit"
                               >
                                 <Pencil className="size-4" />
@@ -286,7 +286,7 @@ export default function AdminCreateCategories() {
                                 type="button"
                                 onClick={() => handleDelete(category.id, category.name)}
                                 disabled={isDeleting}
-                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-red-50 hover:text-red-600 disabled:opacity-60"
+                                className="rounded-lg p-1.5 text-gray-500 transition hover:bg-red-50 hover:text-red-600 disabled:opacity-60 dark:hover:bg-red-950"
                                 title="Delete"
                               >
                                 {isDeleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />}

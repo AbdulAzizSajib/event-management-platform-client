@@ -76,17 +76,17 @@ export default function AdminEvents() {
         <div>
             {/* Header */}
             <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                     All Events {meta ? `(${meta.total})` : ''}
                 </h2>
-                <div className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 sm:w-auto">
+                <div className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 sm:w-auto dark:border-gray-700 dark:bg-gray-900">
                     <Search className="size-4 text-gray-400" />
                     <input
                         type="text"
                         placeholder="Search events..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full text-sm outline-none sm:w-48"
+                        className="w-full text-sm outline-none sm:w-48 dark:text-gray-200 dark:placeholder-gray-500"
                     />
                     {searchTerm && (
                         <button onClick={() => setSearchTerm('')}>
@@ -103,38 +103,38 @@ export default function AdminEvents() {
                 </div>
             ) : events.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                    <CalendarDays className="mb-3 size-12 text-gray-300" />
-                    <p className="text-gray-500">No events found</p>
+                    <CalendarDays className="mb-3 size-12 text-gray-300 dark:text-gray-600" />
+                    <p className="text-gray-500 dark:text-gray-400">No events found</p>
                 </div>
             ) : (
-                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-gray-200 bg-gray-50">
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Event</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Organizer</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Type</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Fee</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Stats</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Date</th>
-                                    <th className="px-4 py-3 text-left font-medium text-gray-500">Actions</th>
+                                <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50">
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Event</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Organizer</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Type</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Fee</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Stats</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Date</th>
+                                    <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {events.map((event) => {
                                     const fee = parseFloat(event.fee);
                                     return (
-                                        <tr key={event.id} className="transition hover:bg-gray-50">
+                                        <tr key={event.id} className="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
                                             <td className="px-4 py-3">
                                                 <div className="max-w-56">
-                                                    <p className="truncate font-medium text-gray-900">{event.title}</p>
+                                                    <p className="truncate font-medium text-gray-900 dark:text-white">{event.title}</p>
                                                     <p className="truncate text-xs text-gray-400">{event.venue}</p>
                                                 </div>
                                             </td>
                                             <td className="px-4 py-3">
                                                 <div>
-                                                    <p className="text-gray-700">{event.organizer.name}</p>
+                                                    <p className="text-gray-700 dark:text-gray-300">{event.organizer.name}</p>
                                                     <p className="text-xs text-gray-400">{event.organizer.email}</p>
                                                 </div>
                                             </td>
@@ -143,28 +143,28 @@ export default function AdminEvents() {
                                                     <span
                                                         className={`w-fit rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                             event.type === 'PUBLIC'
-                                                                ? 'bg-green-100 text-green-700'
-                                                                : 'bg-blue-100 text-blue-700'
+                                                                ? 'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400'
+                                                                : 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-400'
                                                         }`}
                                                     >
                                                         {event.type}
                                                     </span>
                                                     {event.isFeatured && (
-                                                        <span className="w-fit rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">
+                                                        <span className="w-fit rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-950 dark:text-amber-400">
                                                             Featured
                                                         </span>
                                                     )}
                                                 </div>
                                             </td>
-                                            <td className="px-4 py-3 font-medium text-gray-700">
+                                            <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">
                                                 {fee === 0 ? (
-                                                    <span className="text-green-600">Free</span>
+                                                    <span className="text-green-600 dark:text-green-400">Free</span>
                                                 ) : (
                                                     `৳${fee}`
                                                 )}
                                             </td>
                                             <td className="px-4 py-3">
-                                                <div className="flex flex-col gap-1 text-xs text-gray-500">
+                                                <div className="flex flex-col gap-1 text-xs text-gray-500 dark:text-gray-400">
                                                     <span className="flex items-center gap-1">
                                                         <Users className="size-3" />
                                                         {event._count.participants}/{event.maxAttendees}
@@ -179,7 +179,7 @@ export default function AdminEvents() {
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td className="px-4 py-3 text-gray-500">
+                                            <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                                                 {new Date(event.date).toLocaleDateString('en-US', {
                                                     month: 'short',
                                                     day: 'numeric',
@@ -190,7 +190,7 @@ export default function AdminEvents() {
                                                 <div className="flex items-center gap-1">
                                                     <Link
                                                         href={`/events/${event.id}`}
-                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
+                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-800"
                                                     >
                                                         <Eye className="size-4" />
                                                     </Link>
@@ -200,8 +200,8 @@ export default function AdminEvents() {
                                                         title={event.isFeatured ? 'Unfeature' : 'Feature'}
                                                         className={`rounded-lg p-1.5 transition disabled:opacity-50 ${
                                                             event.isFeatured
-                                                                ? 'text-amber-400 hover:bg-amber-50 hover:text-amber-600'
-                                                                : 'text-gray-400 hover:bg-amber-50 hover:text-amber-500'
+                                                                ? 'text-amber-400 hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-950'
+                                                                : 'text-gray-400 hover:bg-amber-50 hover:text-amber-500 dark:hover:bg-amber-950'
                                                         }`}
                                                     >
                                                         {togglingFeaturedId === event.id ? (
@@ -213,7 +213,7 @@ export default function AdminEvents() {
                                                     <button
                                                         onClick={() => handleDelete(event.id, event.title)}
                                                         disabled={deletingId === event.id}
-                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
+                                                        className="rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50 dark:hover:bg-red-950"
                                                     >
                                                         {deletingId === event.id ? (
                                                             <Loader2 className="size-4 animate-spin" />
@@ -238,7 +238,7 @@ export default function AdminEvents() {
                     <button
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
-                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                     >
                         <ChevronLeft className="size-4" />
                         Previous
@@ -251,7 +251,7 @@ export default function AdminEvents() {
                                 className={`flex size-10 items-center justify-center rounded-lg text-sm transition ${
                                     page === p
                                         ? 'btn text-white'
-                                        : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                        : 'border border-gray-200 text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800'
                                 }`}
                             >
                                 {p}
@@ -261,7 +261,7 @@ export default function AdminEvents() {
                     <button
                         onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
                         disabled={page === meta.totalPages}
-                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex items-center gap-1 rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
                     >
                         Next
                         <ChevronRight className="size-4" />

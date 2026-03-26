@@ -3,6 +3,7 @@ import { Urbanist } from 'next/font/google';
 import './globals.css';
 import LenisScroll from '@/components/shared/lenis-scroll';
 import QueryProvider from '@/providers/QueryProvider';
+import ThemeProvider from '@/providers/ThemeProvider';
 
 const urbanist = Urbanist({
     subsets: ['latin'],
@@ -13,10 +14,12 @@ export const metadata: Metadata = {};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={urbanist.variable}>
+        <html lang="en" className={urbanist.variable} suppressHydrationWarning>
             <LenisScroll />
             <body className="font-sans">
-                <QueryProvider>{children}</QueryProvider>
+                <ThemeProvider>
+                    <QueryProvider>{children}</QueryProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

@@ -6,9 +6,13 @@ import RegisterButton from '@/components/modules/Event/RegisterButton';
 import SaveButton from '@/components/modules/Event/SaveButton';
 import ShareButtons from '@/components/modules/Event/ShareButtons';
 import ReviewForm from '@/components/modules/Event/ReviewForm';
+import EventChat from '@/components/modules/Event/EventChat';
+import { getAuthUser } from '@/lib/getAuthUser';
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+
+    const user = await getAuthUser();
 
     let event;
     try {
@@ -32,7 +36,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <div className="mx-auto max-w-5xl">
                 <Link
                     href="/events"
-                    className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-blue-600"
+                    className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-blue-600 dark:text-gray-400"
                 >
                     <ArrowLeft className="size-4" /> Back to Events
                 </Link>
@@ -42,7 +46,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     {event.image ? (
                         <img src={event.image} alt={event.title} className="h-full w-full object-cover" />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-200">
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-200 dark:from-blue-950 dark:to-indigo-950">
                             <CalendarDays className="size-20 text-blue-400" />
                         </div>
                     )}
@@ -62,7 +66,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                     Free
                                 </span>
                             )}
-                            <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-gray-700">
+                            <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800/90 dark:text-gray-300">
                                 {event.type}
                             </span>
                         </div>
@@ -79,21 +83,21 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     <div className="space-y-8 lg:col-span-2">
                         {/* About */}
                         <div>
-                            <h2 className="mb-4 text-xl font-semibold text-gray-900">About This Event</h2>
-                            <p className="leading-relaxed text-gray-600">{event.description}</p>
+                            <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">About This Event</h2>
+                            <p className="leading-relaxed text-gray-600 dark:text-gray-400">{event.description}</p>
                         </div>
 
                         {/* Event Link */}
                         {event.eventLink && (
                             <div>
-                                <h3 className="mb-3 flex items-center gap-1 text-sm font-semibold text-gray-700">
+                                <h3 className="mb-3 flex items-center gap-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
                                     <ExternalLink className="size-4" /> Event Link
                                 </h3>
                                 <a
                                     href={event.eventLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm text-blue-600 hover:underline"
+                                    className="text-sm text-blue-600 hover:underline dark:text-blue-400"
                                 >
                                     {event.eventLink}
                                 </a>
@@ -101,7 +105,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                         )}
 
                         {/* Organizer */}
-                        <div className="flex items-center gap-4 rounded-xl border border-gray-200 p-4">
+                        <div className="flex items-center gap-4 rounded-xl border border-gray-200 p-4 dark:border-gray-800">
                             {event.organizer.image ? (
                                 <img
                                     src={event.organizer.image}
@@ -109,36 +113,36 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                     className="size-14 rounded-full object-cover"
                                 />
                             ) : (
-                                <div className="flex size-14 items-center justify-center rounded-full bg-blue-100">
-                                    <User className="size-7 text-blue-600" />
+                                <div className="flex size-14 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-950">
+                                    <User className="size-7 text-blue-600 dark:text-blue-400" />
                                 </div>
                             )}
                             <div>
-                                <p className="text-xs text-gray-500">Organized by</p>
-                                <p className="font-semibold text-gray-900">{event.organizer.name}</p>
-                                <p className="text-sm text-gray-500">{event.organizer.email}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Organized by</p>
+                                <p className="font-semibold text-gray-900 dark:text-white">{event.organizer.name}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">{event.organizer.email}</p>
                             </div>
                         </div>
 
                         {/* Reviews */}
                         {event.reviews && event.reviews.length > 0 && (
                             <div>
-                                <h2 className="mb-4 text-xl font-semibold text-gray-900">
+                                <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
                                     Reviews ({event._count.reviews})
                                 </h2>
                                 <div className="space-y-4">
                                     {event.reviews.map((review) => (
-                                        <div key={review.id} className="rounded-xl border border-gray-200 p-4">
+                                        <div key={review.id} className="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
                                             <div className="mb-3 flex items-center gap-3">
                                                 {review.user?.image ? (
                                                     <img src={review.user.image} alt={review.user.name} className="size-10 rounded-full" />
                                                 ) : (
-                                                    <div className="flex size-10 items-center justify-center rounded-full bg-gray-100">
+                                                    <div className="flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
                                                         <User className="size-5 text-gray-500" />
                                                     </div>
                                                 )}
                                                 <div>
-                                                    <p className="font-medium text-gray-800">{review.user?.name || 'Anonymous'}</p>
+                                                    <p className="font-medium text-gray-800 dark:text-gray-200">{review.user?.name || 'Anonymous'}</p>
                                                     <div className="flex items-center gap-1">
                                                         {Array.from({ length: review.rating }).map((_, i) => (
                                                             <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" />
@@ -149,7 +153,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                                     {new Date(review.createdAt).toLocaleDateString()}
                                                 </span>
                                             </div>
-                                            <p className="text-sm text-gray-600">{review.comment}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">{review.comment}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -160,9 +164,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                         <ReviewForm eventId={event.id} />
 
                         {event._count.reviews === 0 && (
-                            <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center">
-                                <Star className="mx-auto size-8 text-gray-300" />
-                                <p className="mt-2 text-sm text-gray-500">No reviews yet. Be the first to review!</p>
+                            <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center dark:border-gray-700">
+                                <Star className="mx-auto size-8 text-gray-300 dark:text-gray-600" />
+                                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">No reviews yet. Be the first to review!</p>
                             </div>
                         )}
                     </div>
@@ -170,10 +174,10 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     {/* Right Sidebar */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-28 space-y-4">
-                            <div className="space-y-5 rounded-xl border border-gray-200 bg-white p-6">
+                            <div className="space-y-5 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
                                 {/* Price */}
                                 <div className="text-center">
-                                    <span className="text-3xl font-bold text-blue-600">
+                                    <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                                         {isFree ? 'Free' : `৳${fee}`}
                                     </span>
                                     {!isFree && <span className="ml-1 text-sm text-gray-400">/ person</span>}
@@ -181,7 +185,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
 
                                 {/* Event Details */}
                                 <div className="space-y-3 text-sm">
-                                    <div className="flex items-center gap-3 text-gray-600">
+                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                                         <CalendarDays className="size-5 shrink-0 text-blue-400" />
                                         <span>
                                             {new Date(event.date).toLocaleDateString('en-US', {
@@ -192,15 +196,15 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                             })}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-gray-600">
+                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                                         <Clock className="size-5 shrink-0 text-blue-400" />
                                         <span>{event.time}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-gray-600">
+                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                                         <MapPin className="size-5 shrink-0 text-blue-400" />
                                         <span>{event.venue}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-gray-600">
+                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                                         <Users className="size-5 shrink-0 text-blue-400" />
                                         <span>
                                             {event._count.participants} / {event.maxAttendees} registered
@@ -211,12 +215,12 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                                 {/* Progress Bar */}
                                 <div>
                                     <div className="mb-1 flex items-center justify-between text-sm">
-                                        <span className="text-gray-500">
+                                        <span className="text-gray-500 dark:text-gray-400">
                                             {spotsLeft > 0 ? `${spotsLeft} spots left` : 'Sold out'}
                                         </span>
-                                        <span className="font-medium text-blue-600">{percentFull}%</span>
+                                        <span className="font-medium text-blue-600 dark:text-blue-400">{percentFull}%</span>
                                     </div>
-                                    <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+                                    <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
                                         <div
                                             className="h-full rounded-full bg-linear-to-r from-blue-600 to-blue-500 transition-all"
                                             style={{ width: `${Math.min(percentFull, 100)}%` }}
@@ -242,6 +246,16 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     </div>
                 </div>
             </div>
+
+            {/* Chat with Organizer */}
+            {user && user.id !== event.organizer.id && (
+                <EventChat
+                    eventId={event.id}
+                    userId={user.id}
+                    organizerName={event.organizer.name}
+                    organizerImage={event.organizer.image}
+                />
+            )}
         </div>
     );
 }

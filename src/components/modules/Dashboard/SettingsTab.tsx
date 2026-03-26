@@ -73,17 +73,17 @@ export default function SettingsTab() {
     return (
         <div className="max-w-2xl space-y-8">
             <div>
-                <h2 className="mb-6 text-lg font-semibold text-gray-900">Profile Settings</h2>
+                <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Profile Settings</h2>
 
                 {success && (
-                    <div className="mb-4 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                    <div className="mb-4 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-400">
                         <CheckCircle className="size-4" />
                         {success}
                     </div>
                 )}
 
                 {serverError && (
-                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
                         {serverError}
                     </div>
                 )}
@@ -107,7 +107,7 @@ export default function SettingsTab() {
                             </div>
                         )}
                         <div>
-                            <p className="font-medium text-gray-900">{profile?.name}</p>
+                            <p className="font-medium text-gray-900 dark:text-white">{profile?.name}</p>
                             <p className="text-xs text-gray-500">{profile?.email}</p>
                             <p className="mt-0.5 text-xs text-gray-400">Role: {profile?.role}</p>
                         </div>
@@ -118,14 +118,14 @@ export default function SettingsTab() {
                         <form.Field name="name">
                             {(field) => (
                                 <div>
-                                    <label className="mb-1.5 block text-sm font-medium text-gray-700">Name</label>
+                                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
                                     <input
                                         type="text"
                                         placeholder="Your name"
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                     />
                                 </div>
                             )}
@@ -135,14 +135,14 @@ export default function SettingsTab() {
                         <form.Field name="phone">
                             {(field) => (
                                 <div>
-                                    <label className="mb-1.5 block text-sm font-medium text-gray-700">Phone</label>
+                                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
                                     <input
                                         type="tel"
                                         placeholder="01712345678"
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         onBlur={field.handleBlur}
-                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                                     />
                                 </div>
                             )}
@@ -150,7 +150,7 @@ export default function SettingsTab() {
 
                         {/* Image Upload */}
                         <div className="sm:col-span-2">
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Profile Image</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Profile Image</label>
                             <div className="flex items-center gap-4">
                                 {(imagePreview || profile?.image) && (
                                     <div className="relative">
@@ -170,7 +170,7 @@ export default function SettingsTab() {
                                         )}
                                     </div>
                                 )}
-                                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-600 transition hover:border-blue-400 hover:bg-blue-50">
+                                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-600 transition hover:border-blue-400 hover:bg-blue-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue-950">
                                     <Camera className="size-4" />
                                     {imageFile ? 'Change Image' : 'Upload Image'}
                                     <input
@@ -194,12 +194,12 @@ export default function SettingsTab() {
 
                         {/* Email (read-only) */}
                         <div className="sm:col-span-2">
-                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
+                            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                             <input
                                 type="email"
                                 value={profile?.email || ''}
                                 disabled
-                                className="w-full cursor-not-allowed rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-500 outline-none"
+                                className="w-full cursor-not-allowed rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 outline-none"
                             />
                             <p className="mt-1 text-xs text-gray-400">Email cannot be changed</p>
                         </div>

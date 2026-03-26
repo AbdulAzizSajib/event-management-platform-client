@@ -36,7 +36,7 @@ const getCategoryIcon = (iconUrl: string | null) => {
     }
 };
 
-const PRIMARY_ICON_COLOR_CLASS = 'bg-blue-50 text-blue-600 group-hover:bg-blue-100';
+const PRIMARY_ICON_COLOR_CLASS = 'bg-blue-50 text-blue-600 group-hover:bg-blue-100 dark:bg-blue-950 dark:text-blue-400 dark:group-hover:bg-blue-900';
 
 export default function CategoriesSection() {
     const [categories, setCategories] = useState<ApiCategory[]>([]);
@@ -70,12 +70,12 @@ export default function CategoriesSection() {
                             <Link
                                 key={cat.id}
                                 href={`/events?categoryId=${cat.id}`}
-                                className="group flex flex-col items-center gap-3 rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                                className="group flex flex-col items-center gap-3 rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-800"
                             >
                                 <div className={`flex size-14 items-center justify-center rounded-xl transition-colors ${PRIMARY_ICON_COLOR_CLASS}`}>
                                     <Icon className="size-7" />
                                 </div>
-                                <h3 className="font-semibold text-gray-800 transition-colors group-hover:text-blue-600">
+                                <h3 className="font-semibold text-gray-800 transition-colors group-hover:text-blue-600 dark:text-gray-200">
                                     {cat.name}
                                 </h3>
                                 <p className="text-xs text-gray-400">
