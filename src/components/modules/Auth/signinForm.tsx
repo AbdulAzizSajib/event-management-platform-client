@@ -46,7 +46,7 @@ export default function SignInForm({ redirectPath, verified }: SignInFormProps) 
 
     const handleGoogleLogin = () => {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const redirect = redirectPath || '/dashboard';
+    const redirect = redirectPath || '/';
     window.location.href = `${baseUrl}/auth/login/google?redirect=${redirect}`;
 };
 

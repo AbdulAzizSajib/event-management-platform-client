@@ -182,7 +182,7 @@ export default function SignUpForm() {
                         type="button"
                         onClick={() => {
                             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-                            window.location.href = `${baseUrl}/auth/login/google?redirect=/dashboard`;
+                            window.location.href = `${baseUrl}/auth/login/google?redirect=/`;
                         }}
                         className="flex items-center justify-center gap-2 rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                     >

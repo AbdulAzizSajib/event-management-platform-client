@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Users, CalendarDays, BarChart3, Shield, AlertTriangle } from 'lucide-react';
+import { Users, CalendarDays, BarChart3, Shield, AlertTriangle, Component } from 'lucide-react';
 import AdminOverview from './AdminOverview';
 import AdminUsers from './AdminUsers';
 import AdminEvents from './AdminEvents';
@@ -12,8 +12,9 @@ const adminTabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'events', label: 'Events', icon: CalendarDays },
-    { id: 'reports', label: 'Reports', icon: AlertTriangle },
-    { id: 'create-categories', label: 'Create Categories', icon: Shield },
+    // { id: 'reports', label: 'Reports', icon: AlertTriangle },
+    // category icon
+    { id: 'create-categories', label: 'Create Categories', icon:Component  },
 ];
 
 export default function AdminDashboardClient() {
