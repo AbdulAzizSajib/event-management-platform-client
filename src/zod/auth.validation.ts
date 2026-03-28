@@ -21,3 +21,17 @@ export const verifyEmailZodSchema = z.object({
 });
 
 export type IVerifyEmailPayload = z.infer<typeof verifyEmailZodSchema>;
+
+export const forgotPasswordZodSchema = z.object({
+    email: z.email({ message: 'Please enter a valid email address' }),
+});
+
+export type IForgotPasswordPayload = z.infer<typeof forgotPasswordZodSchema>;
+
+export const resetPasswordZodSchema = z.object({
+    email: z.email({ message: 'Please enter a valid email address' }),
+    otp: z.string().min(6, 'OTP must be 6 digits').max(6, 'OTP must be 6 digits'),
+    newPassword: z.string().min(6, 'Password must be at least 6 characters'),
+});
+
+export type IResetPasswordPayload = z.infer<typeof resetPasswordZodSchema>;

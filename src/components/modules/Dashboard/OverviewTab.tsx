@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
     CalendarDays,
     Ticket,
@@ -18,20 +17,20 @@ import {
     ArrowRight,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { getUserDashboard, type DashboardData } from '@/services/dashboard.services';
+import type { ApiResponse } from '@/types/api.types';
 
 export default function OverviewTab() {
-    const [data, setData] = useState<DashboardData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['user-dashboard'],
+        queryFn: getUserDashboard,
+        refetchOnWindowFocus: "always",
+    });
 
-    useEffect(() => {
-        getUserDashboard()
-            .then((res) => setData(res.data))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const data = (response as ApiResponse<DashboardData>)?.data;
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

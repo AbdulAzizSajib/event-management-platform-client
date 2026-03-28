@@ -1,7 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, Loader2, Pencil, Plus, Tags, Trash2, X } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createCategory,
   deleteCategory,
@@ -11,8 +12,7 @@ import {
 } from '@/services/category.services';
 
 export default function AdminCreateCategories() {
-  const [categories, setCategories] = useState<CategoryWithCount[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('');
@@ -27,22 +27,13 @@ export default function AdminCreateCategories() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const loadCategories = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await getAllCategories();
-      setCategories(res.data);
-    } catch {
-      setCategories([]);
-      setError('Failed to load categories');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { data: response, isLoading: loading } = useQuery({
+    queryKey: ['admin-categories'],
+    queryFn: () => getAllCategories(),
 
-  useEffect(() => {
-    loadCategories();
-  }, [loadCategories]);
+  });
+
+  const categories = (response?.data || []) as CategoryWithCount[];
 
   const resetMessages = () => {
     setError(null);
@@ -70,7 +61,7 @@ export default function AdminCreateCategories() {
       setName('');
       setIcon('');
       setSuccess('Category created successfully');
-      await loadCategories();
+      queryClient.invalidateQueries({ queryKey: ['admin-categories'] });
     } catch {
       setError('Failed to create category');
     } finally {
@@ -109,7 +100,7 @@ export default function AdminCreateCategories() {
       });
       setSuccess('Category updated successfully');
       cancelEdit();
-      await loadCategories();
+      queryClient.invalidateQueries({ queryKey: ['admin-categories'] });
     } catch {
       setError('Failed to update category');
     } finally {
@@ -125,7 +116,7 @@ export default function AdminCreateCategories() {
     try {
       await deleteCategory(id);
       setSuccess('Category deleted successfully');
-      await loadCategories();
+      queryClient.invalidateQueries({ queryKey: ['admin-categories'] });
     } catch {
       setError('Failed to delete category');
     } finally {

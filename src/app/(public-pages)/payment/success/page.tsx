@@ -144,7 +144,7 @@ export default function PaymentSuccessPage() {
                 {/* Actions */}
                 <div className="mt-6 flex flex-col gap-3">
                     <Link
-                        href={`/events/${payment.eventId}`}
+                        href={`/events/${payment.event.id || payment.eventId}`}
                         className="btn flex items-center justify-center gap-2 rounded-full py-3 text-sm font-medium text-white hover:opacity-90"
                     >
                         <CalendarDays className="size-4" />

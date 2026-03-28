@@ -2,45 +2,25 @@
 
 import { CalendarDays, PlusCircle, Users, MapPin, Eye, Edit, Trash2, Loader2 } from 'lucide-react';
 import { deleteEvent, getMyEvents } from '@/services/event.services';
-import { useEffect, useState, useCallback } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import type { Event } from '@/types/event.types';
+import type { ApiResponse } from '@/types/api.types';
 import EditEventModal from './EditEventModal';
 
-interface MyEvent {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    time: string;
-    venue: string;
-    type: string;
-    fee: string;
-    maxAttendees: number;
-    image: string | null;
-    isFeatured: boolean;
-    _count: {
-        participants: number;
-        reviews: number;
-    };
-}
-
 export default function MyEventsTab() {
-    const [events, setEvents] = useState<MyEvent[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [editingEventId, setEditingEventId] = useState<string | null>(null);
 
-    const fetchEvents = useCallback(() => {
-        setLoading(true);
-        getMyEvents()
-            .then((res) => setEvents(res.data as unknown as MyEvent[]))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['my-events'],
+        queryFn: getMyEvents,
+        refetchOnWindowFocus: "always",
+    });
 
-    useEffect(() => {
-        fetchEvents();
-    }, [fetchEvents]);
+    const events = ((response as ApiResponse<Event[]>)?.data || []) as (Event & { _count: { participants: number; reviews: number } })[];
 
     const handleDelete = async (id: string, title: string) => {
         if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
@@ -48,7 +28,7 @@ export default function MyEventsTab() {
         setDeletingId(id);
         try {
             await deleteEvent(id);
-            setEvents((prev) => prev.filter((e) => e.id !== id));
+            queryClient.invalidateQueries({ queryKey: ['my-events'] });
         } catch {
             alert('Failed to delete event');
         } finally {
@@ -56,7 +36,7 @@ export default function MyEventsTab() {
         }
     };
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />
@@ -174,7 +154,7 @@ export default function MyEventsTab() {
                 <EditEventModal
                     eventId={editingEventId}
                     onClose={() => setEditingEventId(null)}
-                    onSuccess={fetchEvents}
+                    onSuccess={() => queryClient.invalidateQueries({ queryKey: ['my-events'] })}
                 />
             )}
         </>

@@ -26,16 +26,18 @@ export const loginAction = async (
     try {
         const response = await httpClient.post<ILoginResponse>('/auth/login', parsedPayload.data);
 
+        // Case A: Email not verified — no tokens, redirect to verify page
+        if (response.data.requiresEmailVerification) {
+            redirect(`/verify-email?email=${encodeURIComponent(response.data.user.email)}`);
+        }
+
+        // Case B: Email verified — set tokens and redirect
         const { accessToken, refreshToken, token, user } = response.data;
-        const { role, email, emailVerified } = user;
+        const { role } = user;
 
         await setTokenInCookies('accessToken', accessToken);
         await setTokenInCookies('refreshToken', refreshToken);
         await setTokenInCookies('better-auth.session_token', token, 24 * 60 * 60);
-
-        if (!emailVerified) {
-            redirect(`/verify-email?email=${encodeURIComponent(email)}`);
-        }
 
         const targetPath =
             redirectPath && isValidRedirectForRole(redirectPath, role as UserRole)

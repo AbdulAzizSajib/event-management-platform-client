@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { CalendarDays, MapPin, Clock, Loader2, Ticket, User } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { getMyParticipations, type MyParticipation } from '@/services/participant.services';
+import type { ApiResponse } from '@/types/api.types';
 
 const statusColors: Record<string, string> = {
     APPROVED: 'bg-green-100 text-green-700',
@@ -13,17 +14,15 @@ const statusColors: Record<string, string> = {
 };
 
 export default function RegistrationsTab() {
-    const [participations, setParticipations] = useState<MyParticipation[]>([]);
-    const [loading, setLoading] = useState(true);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['my-participations'],
+        queryFn: getMyParticipations,
+        refetchOnWindowFocus: "always",
+    });
 
-    useEffect(() => {
-        getMyParticipations()
-            .then((res) => setParticipations(res.data))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const participations = ((response as ApiResponse<MyParticipation[]>)?.data || []);
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

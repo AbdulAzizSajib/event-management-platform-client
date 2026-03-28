@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
     Users,
     CalendarDays,
@@ -12,20 +11,20 @@ import {
     User,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { getAdminDashboard, type AdminDashboardData } from '@/services/admin.services';
+import type { ApiResponse } from '@/types/api.types';
 
 export default function AdminOverview() {
-    const [data, setData] = useState<AdminDashboardData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['admin-dashboard'],
+        queryFn: getAdminDashboard,
+        refetchOnWindowFocus: "always",
+    });
 
-    useEffect(() => {
-        getAdminDashboard()
-            .then((res) => setData(res.data))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const data = (response as ApiResponse<AdminDashboardData>)?.data;
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

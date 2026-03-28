@@ -2,14 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Search, CalendarDays, Users, CreditCard, Loader2, X, ChevronLeft, ChevronRight, Eye, Star, Trash2 } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAdminEvents, deleteAdminEvent, toggleFeaturedEvent, type AdminEvent } from '@/services/admin.services';
-import type { PaginationMeta } from '@/types/api.types';
 import Link from 'next/link';
 
 export default function AdminEvents() {
-    const [events, setEvents] = useState<AdminEvent[]>([]);
-    const [meta, setMeta] = useState<PaginationMeta | null>(null);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [togglingFeaturedId, setTogglingFeaturedId] = useState<string | null>(null);
@@ -25,33 +23,28 @@ export default function AdminEvents() {
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    const fetchEvents = useCallback(async () => {
-        setLoading(true);
-        try {
-            const params: Record<string, unknown> = { page, limit: 10 };
-            if (debouncedSearch) params.searchTerm = debouncedSearch;
-
-            const response = await getAdminEvents(params);
-            setEvents(response.data);
-            setMeta(response.meta || null);
-        } catch {
-            setEvents([]);
-        } finally {
-            setLoading(false);
-        }
+    const buildParams = useCallback(() => {
+        const params: Record<string, unknown> = { page, limit: 10 };
+        if (debouncedSearch) params.searchTerm = debouncedSearch;
+        return params;
     }, [page, debouncedSearch]);
 
-    useEffect(() => {
-        fetchEvents();
-    }, [fetchEvents]);
+    const queryParams = buildParams();
+
+    const { data: response, isLoading: loading } = useQuery({
+        queryKey: ['admin-events', queryParams],
+        queryFn: () => getAdminEvents(queryParams),
+        refetchOnWindowFocus: "always",
+    });
+
+    const events = response?.data || [];
+    const meta = response?.meta || null;
 
     const handleToggleFeatured = async (id: string) => {
         setTogglingFeaturedId(id);
         try {
             await toggleFeaturedEvent(id);
-            setEvents((prev) =>
-                prev.map((e) => (e.id === id ? { ...e, isFeatured: !e.isFeatured } : e))
-            );
+            queryClient.invalidateQueries({ queryKey: ['admin-events'] });
         } catch {
             alert('Failed to update featured status');
         } finally {
@@ -64,7 +57,7 @@ export default function AdminEvents() {
         setDeletingId(id);
         try {
             await deleteAdminEvent(id);
-            fetchEvents();
+            queryClient.invalidateQueries({ queryKey: ['admin-events'] });
         } catch {
             alert('Failed to delete event');
         } finally {

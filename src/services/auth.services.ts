@@ -49,9 +49,53 @@ export async function getNewTokensWithRefreshToken(refreshToken  : string) : Pro
         }
 
         return true;
-    } catch (error) {
-        console.error("Error refreshing token:", error);
+    } catch (error: unknown) {
+        // Silently ignore cookie modification errors during page render
+        const msg = error instanceof Error ? error.message : '';
+        if (!msg.includes('Cookies can only be modified')) {
+            console.error("Error refreshing token:", error);
+        }
         return false;
+    }
+}
+
+export async function forgetPassword(email: string) {
+    try {
+        const res = await fetch(`${BASE_API_URL}/auth/forget-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            return { success: false, message: data.message || "Failed to send OTP" };
+        }
+
+        return { success: true, message: data.message || "OTP sent to your email" };
+    } catch {
+        return { success: false, message: "Something went wrong" };
+    }
+}
+
+export async function resetPassword(payload: { email: string; otp: string; newPassword: string }) {
+    try {
+        const res = await fetch(`${BASE_API_URL}/auth/reset-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            return { success: false, message: data.message || "Failed to reset password" };
+        }
+
+        return { success: true, message: data.message || "Password reset successfully" };
+    } catch {
+        return { success: false, message: "Something went wrong" };
     }
 }
 

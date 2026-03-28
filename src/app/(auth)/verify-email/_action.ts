@@ -22,9 +22,8 @@ export const verifyEmailAction = async (
     try {
         await httpClient.post('/auth/verify-email', parsedPayload.data);
 
-        // API returns { success: true, message: "Email verified successfully" }
-        // No tokens — redirect to signin so user can login with verified email
-        redirect('/signin');
+        // No tokens — redirect to signin with success message
+        redirect('/signin?verified=true');
     } catch (error: any) {
         if (
             error &&

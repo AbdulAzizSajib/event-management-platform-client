@@ -138,5 +138,5 @@ export const deleteAdminEvent = async (eventId: string) => {
 };
 
 export const toggleFeaturedEvent = async (eventId: string) => {
-    return httpClient.patch(`/events/${eventId}/toggle-featured`);
+    return httpClient.patch(`/events/${eventId}/toggle-featured`, {});
 };

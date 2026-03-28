@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useState } from 'react';
 import { CalendarDays, Heart, MapPin, Clock, Loader2, User, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMySavedEvents, unsaveEvent } from '@/services/savedEvent.services';
 
 interface SavedEventItem {
@@ -34,27 +35,22 @@ interface SavedEventItem {
 }
 
 export default function SavedTab() {
-    const [savedEvents, setSavedEvents] = useState<SavedEventItem[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [removingId, setRemovingId] = useState<string | null>(null);
 
-    const fetchSaved = useCallback(() => {
-        setLoading(true);
-        getMySavedEvents()
-            .then((res) => setSavedEvents(res.data as unknown as SavedEventItem[]))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['my-saved-events'],
+        queryFn: getMySavedEvents,
 
-    useEffect(() => {
-        fetchSaved();
-    }, [fetchSaved]);
+    });
+
+    const savedEvents = (response?.data || []) as unknown as SavedEventItem[];
 
     const handleUnsave = async (eventId: string) => {
         setRemovingId(eventId);
         try {
             await unsaveEvent(eventId);
-            setSavedEvents((prev) => prev.filter((s) => s.eventId !== eventId));
+            queryClient.invalidateQueries({ queryKey: ['my-saved-events'] });
         } catch {
             // silent fail
         } finally {
@@ -62,7 +58,7 @@ export default function SavedTab() {
         }
     };
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

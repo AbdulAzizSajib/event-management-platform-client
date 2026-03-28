@@ -1,13 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Star, Loader2, CalendarDays, MapPin, Pencil, Trash2, X, Send } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMyReviews, updateReview, deleteReview, type MyReview } from '@/services/review.services';
+import type { ApiResponse } from '@/types/api.types';
 
 export default function MyReviewsTab() {
-    const [reviews, setReviews] = useState<MyReview[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editRating, setEditRating] = useState(0);
     const [editComment, setEditComment] = useState('');
@@ -16,21 +17,13 @@ export default function MyReviewsTab() {
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchReviews = useCallback(async () => {
-        setLoading(true);
-        try {
-            const res = await getMyReviews();
-            setReviews(res.data);
-        } catch {
-            setReviews([]);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['my-reviews'],
+        queryFn: () => getMyReviews(),
 
-    useEffect(() => {
-        fetchReviews();
-    }, [fetchReviews]);
+    });
+
+    const reviews = ((response as ApiResponse<MyReview[]>)?.data || []);
 
     const startEdit = (review: MyReview) => {
         setEditingId(review.id);
@@ -55,7 +48,7 @@ export default function MyReviewsTab() {
             setError(result.message || 'Failed to update');
         } else {
             setEditingId(null);
-            fetchReviews();
+            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
         }
         setSaving(false);
     };
@@ -67,12 +60,12 @@ export default function MyReviewsTab() {
         if (!result.success) {
             alert(result.message || 'Failed to delete');
         } else {
-            fetchReviews();
+            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
         }
         setDeletingId(null);
     };
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

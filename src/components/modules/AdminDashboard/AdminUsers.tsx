@@ -2,13 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Search, User, Loader2, CalendarDays, Users, Star, ChevronLeft, ChevronRight, X, ShieldBan, ShieldCheck, Trash2 } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAdminUsers, updateUserStatus, type AdminUser } from '@/services/admin.services';
-import type { PaginationMeta } from '@/types/api.types';
 
 export default function AdminUsers() {
-    const [users, setUsers] = useState<AdminUser[]>([]);
-    const [meta, setMeta] = useState<PaginationMeta | null>(null);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
     // Filters
     const [searchTerm, setSearchTerm] = useState('');
@@ -18,19 +16,6 @@ export default function AdminUsers() {
     const [page, setPage] = useState(1);
     const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
 
-    const handleStatusChange = async (userId: string, newStatus: string, label: string) => {
-        if (!confirm(`Are you sure you want to ${label} this user?`)) return;
-        setActionLoadingId(userId);
-        try {
-            await updateUserStatus(userId, newStatus);
-            fetchUsers();
-        } catch {
-            alert(`Failed to ${label} user`);
-        } finally {
-            setActionLoadingId(null);
-        }
-    };
-
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearch(searchTerm);
@@ -39,27 +24,37 @@ export default function AdminUsers() {
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    const fetchUsers = useCallback(async () => {
-        setLoading(true);
-        try {
-            const params: Record<string, unknown> = { page, limit: 10 };
-            if (debouncedSearch) params.searchTerm = debouncedSearch;
-            if (roleFilter) params.role = roleFilter;
-            if (statusFilter) params.status = statusFilter;
-
-            const response = await getAdminUsers(params);
-            setUsers(response.data);
-            setMeta(response.meta || null);
-        } catch {
-            setUsers([]);
-        } finally {
-            setLoading(false);
-        }
+    const buildParams = useCallback(() => {
+        const params: Record<string, unknown> = { page, limit: 10 };
+        if (debouncedSearch) params.searchTerm = debouncedSearch;
+        if (roleFilter) params.role = roleFilter;
+        if (statusFilter) params.status = statusFilter;
+        return params;
     }, [page, debouncedSearch, roleFilter, statusFilter]);
 
-    useEffect(() => {
-        fetchUsers();
-    }, [fetchUsers]);
+    const queryParams = buildParams();
+
+    const { data: response, isLoading: loading } = useQuery({
+        queryKey: ['admin-users', queryParams],
+        queryFn: () => getAdminUsers(queryParams),
+        refetchOnWindowFocus: "always",
+    });
+
+    const users = response?.data || [];
+    const meta = response?.meta || null;
+
+    const handleStatusChange = async (userId: string, newStatus: string, label: string) => {
+        if (!confirm(`Are you sure you want to ${label} this user?`)) return;
+        setActionLoadingId(userId);
+        try {
+            await updateUserStatus(userId, newStatus);
+            queryClient.invalidateQueries({ queryKey: ['admin-users'] });
+        } catch {
+            alert(`Failed to ${label} user`);
+        } finally {
+            setActionLoadingId(null);
+        }
+    };
 
     return (
         <div>

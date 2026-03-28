@@ -53,7 +53,7 @@ export const getDefaultDashboardRoute = (role: UserRole) => {
     if (role === 'ADMIN' || role === 'SUPER_ADMIN') {
         return '/admin/dashboard';
     }
-    return '/dashboard';
+    return '/';
 };
 
 export const isValidRedirectForRole = (redirectPath: string, role: UserRole) => {

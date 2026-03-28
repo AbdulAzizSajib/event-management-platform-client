@@ -51,13 +51,13 @@ export default function SignUpForm() {
                         Planora
                     </span>
                 </Link>
-                <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create your account</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Start discovering and creating amazing events
                 </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
                 <form
                     method="POST"
                     action="#"
@@ -130,7 +130,7 @@ export default function SignUpForm() {
                         )}
                     </form.Field>
 
-                    <label className="flex cursor-pointer items-start gap-2 text-sm text-gray-600">
+                    <label className="flex cursor-pointer items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <input
                             type="checkbox"
                             className="mt-0.5 rounded border-gray-300 accent-blue-600"
@@ -148,7 +148,7 @@ export default function SignUpForm() {
                     </label>
 
                     {serverError && (
-                        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
                             {serverError}
                         </div>
                     )}
@@ -173,7 +173,7 @@ export default function SignUpForm() {
                         <div className="w-full border-t border-gray-200" />
                     </div>
                     <div className="relative flex justify-center text-xs">
-                        <span className="bg-white px-3 text-gray-400">or sign up with</span>
+                        <span className="bg-white px-3 text-gray-400 dark:bg-gray-900">or sign up with</span>
                     </div>
                 </div>
 
@@ -184,7 +184,7 @@ export default function SignUpForm() {
                             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
                             window.location.href = `${baseUrl}/auth/login/google?redirect=/dashboard`;
                         }}
-                        className="flex items-center justify-center gap-2 rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+                        className="flex items-center justify-center gap-2 rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                         <svg className="size-5" viewBox="0 0 24 24">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -197,7 +197,7 @@ export default function SignUpForm() {
                 </div>
             </div>
 
-            <p className="mt-6 text-center text-sm text-gray-500">
+            <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
                 Already have an account?{' '}
                 <Link
                     href="/signin"

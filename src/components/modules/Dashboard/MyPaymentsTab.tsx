@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useState } from 'react';
 import { CreditCard, CalendarDays, MapPin, Loader2, CheckCircle, Clock, XCircle, ExternalLink, Download } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { getMyPayments, getPaymentReceipt, type PaymentData } from '@/services/payment.services';
+import type { ApiResponse } from '@/types/api.types';
 import { downloadTicketPDF } from './TicketPDF';
 import Link from 'next/link';
 
@@ -13,25 +15,15 @@ const STATUS_CONFIG: Record<string, { label: string; icon: typeof CheckCircle; c
 };
 
 export default function MyPaymentsTab() {
-    const [payments, setPayments] = useState<PaymentData[]>([]);
-    const [loading, setLoading] = useState(true);
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
-    const fetchPayments = useCallback(async () => {
-        setLoading(true);
-        try {
-            const res = await getMyPayments();
-            setPayments(res.data);
-        } catch {
-            setPayments([]);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['my-payments'],
+        queryFn: getMyPayments,
+        refetchOnWindowFocus: "always",
+    });
 
-    useEffect(() => {
-        fetchPayments();
-    }, [fetchPayments]);
+    const payments = ((response as ApiResponse<PaymentData[]>)?.data || []);
 
     const handleDownloadTicket = async (paymentId: string) => {
         setDownloadingId(paymentId);
@@ -49,7 +41,7 @@ export default function MyPaymentsTab() {
         .filter((p) => p.status === 'SUCCESS')
         .reduce((sum, p) => sum + Number(p.amount), 0);
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="size-8 animate-spin text-blue-500" />

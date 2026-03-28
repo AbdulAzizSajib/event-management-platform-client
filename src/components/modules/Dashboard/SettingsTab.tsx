@@ -2,25 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import { useForm } from '@tanstack/react-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Camera, CheckCircle, Loader2, User, X } from 'lucide-react';
 import { getMyProfile, updateProfile, type UpdateProfilePayload, type UserProfile } from '@/services/user.services';
+import type { ApiResponse } from '@/types/api.types';
 import AppSubmitButton from '@/components/shared/form/AppSubmitButton';
 
 export default function SettingsTab() {
-    const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [serverError, setServerError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    useEffect(() => {
-        getMyProfile()
-            .then((res) => setProfile(res.data))
-            .catch(() => {})
-            .finally(() => setLoading(false));
-    }, []);
+    const { data: response, isLoading: loading } = useQuery({
+        queryKey: ['my-profile'],
+        queryFn: getMyProfile,
+
+    });
+
+    const profile = (response as ApiResponse<UserProfile>)?.data || null;
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (payload: UpdateProfilePayload) => updateProfile(payload),
@@ -40,8 +41,8 @@ export default function SettingsTab() {
                 if (value.phone) payload.phone = value.phone;
                 if (imageFile) payload.image = imageFile;
 
-                const result = await mutateAsync(payload);
-                setProfile(result.data);
+                await mutateAsync(payload);
+                queryClient.invalidateQueries({ queryKey: ['my-profile'] });
                 setImageFile(null);
                 setImagePreview(null);
                 setSuccess('Profile updated successfully!');

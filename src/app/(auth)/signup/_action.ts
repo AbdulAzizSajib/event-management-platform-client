@@ -25,9 +25,18 @@ export const signupAction = async (
     }
 
     try {
-        await httpClient.post('/auth/register', parsedPayload.data);
+        const response = await httpClient.post<{
+            user: { email: string };
+            requiresEmailVerification?: boolean;
+        }>('/auth/register', parsedPayload.data);
 
-        redirect('/signin');
+        // Backend no longer returns tokens — redirect to verify email
+        if (response.data?.requiresEmailVerification) {
+            redirect(`/verify-email?email=${encodeURIComponent(response.data.user.email)}`);
+        }
+
+        // Fallback: redirect using payload email
+        redirect(`/verify-email?email=${encodeURIComponent(parsedPayload.data.email)}`);
     } catch (error: any) {
         if (
             error &&
