@@ -11,6 +11,7 @@ import {
     type ChatMessage,
     type Conversation,
 } from '@/services/chat.services';
+import { getAccessToken } from '@/lib/getAccessToken';
 
 const SOCKET_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api/v1', '') || 'http://localhost:5000';
 
@@ -72,23 +73,31 @@ export default function MessagesTab({ userId }: MessagesTabProps) {
 
     // Global notification socket — silently refresh list
     useEffect(() => {
-        const socket = io(SOCKET_URL, {
-            withCredentials: true,
-            transports: ['websocket', 'polling'],
-        });
+        let cancelled = false;
 
-        notifSocketRef.current = socket;
+        getAccessToken().then((token) => {
+            if (cancelled) return;
 
-        socket.on('connect_error', (err) => {
-            console.error('[Messages] Notification socket error:', err.message);
-        });
+            const socket = io(SOCKET_URL, {
+                withCredentials: true,
+                transports: ['websocket', 'polling'],
+                auth: { token },
+            });
 
-        socket.on('message-notification', () => {
-            refreshConversations();
+            notifSocketRef.current = socket;
+
+            socket.on('connect_error', (err) => {
+                console.error('[Messages] Notification socket error:', err.message);
+            });
+
+            socket.on('message-notification', () => {
+                refreshConversations();
+            });
         });
 
         return () => {
-            socket.disconnect();
+            cancelled = true;
+            notifSocketRef.current?.disconnect();
             notifSocketRef.current = null;
         };
     }, [refreshConversations]);
@@ -139,66 +148,71 @@ export default function MessagesTab({ userId }: MessagesTabProps) {
     useEffect(() => {
         if (!activeConvo) return;
 
-        const socket = io(SOCKET_URL, {
-            withCredentials: true,
-            transports: ['websocket', 'polling'],
-        });
+        let cancelled = false;
 
-        socketRef.current = socket;
+        getAccessToken().then((token) => {
+            if (cancelled) return;
 
-        socket.on('connect', () => {
-            socket.emit('join-conversation', activeConvo.id);
-        });
-
-        socket.on('connect_error', (err) => {
-            console.error('[Messages] Socket error:', err.message);
-        });
-
-        socket.on('new-message', (message: ChatMessage) => {
-            setMessages((prev) => {
-                if (prev.some((m) => m.id === message.id)) return prev;
-                // Replace optimistic temp message if sender is self
-                const hasTemp = prev.some((m) => m.id.startsWith('temp-') && m.senderId === message.senderId);
-                if (hasTemp) {
-                    let replaced = false;
-                    return prev.map((m) => {
-                        if (!replaced && m.id.startsWith('temp-') && m.senderId === message.senderId) {
-                            replaced = true;
-                            return message;
-                        }
-                        return m;
-                    });
-                }
-                return [...prev, message];
+            const socket = io(SOCKET_URL, {
+                withCredentials: true,
+                transports: ['websocket', 'polling'],
+                auth: { token },
             });
-            // Update conversation list sidebar with latest message
-            setConversations((prev) =>
-                prev.map((c) =>
-                    c.id === activeConvo.id
-                        ? { ...c, messages: [message], updatedAt: message.createdAt }
-                        : c
-                )
-            );
-            // Auto mark read
-            socket.emit('mark-read', activeConvo.id);
-        });
 
-        socket.on('user-typing', (data: { conversationId: string; userId: string }) => {
-            if (data.conversationId === activeConvo.id && data.userId !== currentUserId) {
-                setTyping(true);
-            }
-        });
+            socketRef.current = socket;
 
-        socket.on('stop-typing', () => {
-            setTyping(false);
-        });
+            socket.on('connect', () => {
+                socket.emit('join-conversation', activeConvo.id);
+            });
 
-        socket.on('messages-read', () => {
-            // Could update read receipts UI here
+            socket.on('connect_error', (err) => {
+                console.error('[Messages] Socket error:', err.message);
+            });
+
+            socket.on('new-message', (message: ChatMessage) => {
+                setMessages((prev) => {
+                    if (prev.some((m) => m.id === message.id)) return prev;
+                    const hasTemp = prev.some((m) => m.id.startsWith('temp-') && m.senderId === message.senderId);
+                    if (hasTemp) {
+                        let replaced = false;
+                        return prev.map((m) => {
+                            if (!replaced && m.id.startsWith('temp-') && m.senderId === message.senderId) {
+                                replaced = true;
+                                return message;
+                            }
+                            return m;
+                        });
+                    }
+                    return [...prev, message];
+                });
+                setConversations((prev) =>
+                    prev.map((c) =>
+                        c.id === activeConvo.id
+                            ? { ...c, messages: [message], updatedAt: message.createdAt }
+                            : c
+                    )
+                );
+                socket.emit('mark-read', activeConvo.id);
+            });
+
+            socket.on('user-typing', (data: { conversationId: string; userId: string }) => {
+                if (data.conversationId === activeConvo.id && data.userId !== currentUserId) {
+                    setTyping(true);
+                }
+            });
+
+            socket.on('stop-typing', () => {
+                setTyping(false);
+            });
+
+            socket.on('messages-read', () => {
+                // Could update read receipts UI here
+            });
         });
 
         return () => {
-            socket.disconnect();
+            cancelled = true;
+            socketRef.current?.disconnect();
             socketRef.current = null;
         };
     }, [activeConvo, currentUserId]);

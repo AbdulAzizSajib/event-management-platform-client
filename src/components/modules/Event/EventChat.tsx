@@ -11,6 +11,7 @@ import {
     type ChatMessage,
     type Conversation,
 } from '@/services/chat.services';
+import { getAccessToken } from '@/lib/getAccessToken';
 
 interface EventChatProps {
     eventId: string;
@@ -61,60 +62,68 @@ export default function EventChat({ eventId, userId, organizerName, organizerIma
         }
     }, [eventId]);
 
-    // Socket connection — withCredentials lets browser send httpOnly cookies automatically
+    // Socket connection — sends token explicitly for cross-domain auth
     useEffect(() => {
         if (!isOpen || !conversation) return;
 
-        const socket = io(SOCKET_URL, {
-            withCredentials: true,
-            transports: ['websocket', 'polling'],
-        });
+        let cancelled = false;
 
-        socketRef.current = socket;
+        getAccessToken().then((token) => {
+            if (cancelled) return;
 
-        socket.on('connect', () => {
-            socket.emit('join-conversation', conversation.id);
-        });
-
-        socket.on('connect_error', (err) => {
-            console.error('[Chat] Socket connect_error:', err.message);
-        });
-
-        socket.on('new-message', (message: ChatMessage) => {
-            setMessages((prev) => {
-                if (prev.some((m) => m.id === message.id)) return prev;
-                const hasTemp = prev.some((m) => m.id.startsWith('temp-') && m.senderId === message.senderId);
-                if (hasTemp) {
-                    let replaced = false;
-                    return prev.map((m) => {
-                        if (!replaced && m.id.startsWith('temp-') && m.senderId === message.senderId) {
-                            replaced = true;
-                            return message;
-                        }
-                        return m;
-                    });
-                }
-                return [...prev, message];
+            const socket = io(SOCKET_URL, {
+                withCredentials: true,
+                transports: ['websocket', 'polling'],
+                auth: { token },
             });
-            socket.emit('mark-read', conversation.id);
-        });
 
-        socket.on('user-typing', (data: { conversationId: string; userId: string }) => {
-            if (data.conversationId === conversation.id && data.userId !== userId) {
-                setTyping(true);
-            }
-        });
+            socketRef.current = socket;
 
-        socket.on('stop-typing', () => {
-            setTyping(false);
-        });
+            socket.on('connect', () => {
+                socket.emit('join-conversation', conversation.id);
+            });
 
-        socket.on('error', (data: { message: string }) => {
-            console.error('[Chat] Socket error:', data.message);
+            socket.on('connect_error', (err) => {
+                console.error('[Chat] Socket connect_error:', err.message);
+            });
+
+            socket.on('new-message', (message: ChatMessage) => {
+                setMessages((prev) => {
+                    if (prev.some((m) => m.id === message.id)) return prev;
+                    const hasTemp = prev.some((m) => m.id.startsWith('temp-') && m.senderId === message.senderId);
+                    if (hasTemp) {
+                        let replaced = false;
+                        return prev.map((m) => {
+                            if (!replaced && m.id.startsWith('temp-') && m.senderId === message.senderId) {
+                                replaced = true;
+                                return message;
+                            }
+                            return m;
+                        });
+                    }
+                    return [...prev, message];
+                });
+                socket.emit('mark-read', conversation.id);
+            });
+
+            socket.on('user-typing', (data: { conversationId: string; userId: string }) => {
+                if (data.conversationId === conversation.id && data.userId !== userId) {
+                    setTyping(true);
+                }
+            });
+
+            socket.on('stop-typing', () => {
+                setTyping(false);
+            });
+
+            socket.on('error', (data: { message: string }) => {
+                console.error('[Chat] Socket error:', data.message);
+            });
         });
 
         return () => {
-            socket.disconnect();
+            cancelled = true;
+            socketRef.current?.disconnect();
             socketRef.current = null;
         };
     }, [isOpen, conversation, userId]);
