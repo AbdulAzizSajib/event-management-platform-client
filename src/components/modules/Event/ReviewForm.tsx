@@ -43,6 +43,8 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
                     setError('Only approved participants can leave a review');
                 } else if (msg.includes('own event') || msg.includes('organizer')) {
                     setError("You can't review your own event");
+                } else if (msg.toLowerCase().includes('unauthorized') || msg.toLowerCase().includes('session token')) {
+                    setError('Please login to access this feature');
                 } else {
                     setError(msg);
                 }

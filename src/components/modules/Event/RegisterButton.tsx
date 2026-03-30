@@ -71,7 +71,11 @@ export default function RegisterButton({ eventId, fee, spotsLeft }: RegisterButt
             await mutateAsync();
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Failed to register';
-            setError(message);
+            if (message.toLowerCase().includes('unauthorized') || message.toLowerCase().includes('session token')) {
+                setError('Please login to access this feature');
+            } else {
+                setError(message);
+            }
         }
     };
 
